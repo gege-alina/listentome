@@ -4,7 +4,6 @@ class CreateSongs < ActiveRecord::Migration
       t.string :title
       t.string :link
       t.text :desc
-      t.boolean :boost
 
       t.timestamps
     end
