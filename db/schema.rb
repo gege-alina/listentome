@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214100638) do
+ActiveRecord::Schema.define(version: 20131214111635) do
 
   create_table "songs", force: true do |t|
     t.string   "title"
     t.string   "link"
     t.text     "desc"
-    t.boolean  "boost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_songs", force: true do |t|
-    t.integer  "song_id"
     t.integer  "user_id"
+    t.integer  "song_id"
+    t.boolean  "boost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
