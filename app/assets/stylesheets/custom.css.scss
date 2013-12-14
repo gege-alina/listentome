@@ -12,8 +12,8 @@ $Purple: #703D6F;
 $Orange: #F27435;
 $Black: #424141;
 $White: #FFFFFF;
-$BlueLight : #E6F9FF;
-$BlueLight2 : #82CCC9;
+$DarkBlue : #03182C;
+$DarkBlue2 : #74A4B8;
 
 html {
 	overflow-y: scroll !important; 
@@ -24,7 +24,7 @@ body {
 	padding: 0 10px;
 	width: 99%;
 	font-size: 17px;
-	background-color: $BlueLight;
+	background-color: $DarkBlue;
 }
 .sidebar-nav {
 	padding: 9px 0;
@@ -45,7 +45,7 @@ body {
 	padding: 0;
 }
 header .navbar-inner, header .navbar {
-	background: $BlueLight2;
+	background: $DarkBlue2;
 	background-image: none;
 	filter: none;
 	-webkit-box-shadow: none;
@@ -87,7 +87,7 @@ a {
 
 header .navbar {
 	padding: 0 0 10px 0;
-	border-bottom: 1px solid $borderColor;
+	
 	.brand { /*Logo*/
 		padding: 0;
 		margin: 0;
@@ -148,9 +148,7 @@ header .navbar {
 		> a {
 			border-bottom: 2px solid $mainColor !important;
 		}
-		.dropdown-toggle {
-			background: #fff;
-		}
+
 	}
 	.navbar-toggle { /*Nav button for mobile*/
 		right: 0;
@@ -433,7 +431,7 @@ code {
 /* Footer */
 
 .footer {
-	background: $BlueLight2;
+	background: $DarkBlue2;
 	padding: 20px;
 	margin-top: 20px;
 	ul {
@@ -941,6 +939,10 @@ body.black {
     border-color: $White;
    .panel-heading {
     color: #333333;
-    background-color: $BlueLight2;
+    background-color: $DarkBlue2;
    }
 }   
+
+.navbar {
+	border-radius:0px;
+}
