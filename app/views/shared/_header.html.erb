@@ -11,12 +11,8 @@
 
         <div class="collapse navbar-collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/static_pages/about">About</a></li>
-                    </ul>
-                </li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/static_pages/about">About</a></li>
                 <li><%= link_to 'Sign In', :controller => "devise/sessions", :action => "new" %></li>
                 <li><%= link_to 'Sign Up', :controller => "devise/registrations", :action => "new" %></li>
                 <li><%= link_to 'Sign Out', :controller => "devise/sessions", :action => "destroy" %></li>
