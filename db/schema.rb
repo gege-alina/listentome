@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214123006) do
+ActiveRecord::Schema.define(version: 20131214134208) do
 
   create_table "songs", force: true do |t|
     t.string   "title"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20131214123006) do
     t.text     "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "playlist"
+    t.datetime "last_played_at"
   end
 
   create_table "user_songs", force: true do |t|
