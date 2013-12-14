@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 1.2'
 # Devise for generating user templating
 gem 'devise'
 
+# Bootstrap
+gem 'bootstrap-sass'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

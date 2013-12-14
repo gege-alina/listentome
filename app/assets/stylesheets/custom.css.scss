@@ -1,0 +1,946 @@
+﻿$mainColor: #45ADA8; /*turquoise*/
+$Gray: #dadada;
+$darkGray: #585858;
+$textGray: #989898;
+$textColor: #212121;
+$borderColor: #e8e8e8;
+
+/* Custom colors for site */
+$Blue: #559ed6;
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
+$White: #FFFFFF;
+$BlueLight : #E6F9FF;
+$BlueLight2 : #82CCC9;
+
+html {
+	overflow-y: scroll !important; 
+}
+body {
+	max-width: 1024px;
+	margin: 20px auto 0;
+	padding: 0 10px;
+	width: 99%;
+	font-size: 17px;
+	background-color: $BlueLight;
+}
+.sidebar-nav {
+	padding: 9px 0;
+}
+
+%box_sizing-border_box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+/* Override bootstrap*/
+
+.container-fluid {
+	padding: 0;
+}
+header .navbar-inner, header .navbar {
+	background: $BlueLight2;
+	background-image: none;
+	filter: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+a {
+	color: $textColor;
+	&:hover, &:focus {
+		text-decoration: none;
+		color: darken($mainColor, 10%);
+		background-color: transparent;
+	}
+}
+
+
+/* Global loading */
+
+.loading-global {
+	background: url(../images/preloader.gif) center center no-repeat;
+	background-color: #FFF;
+	background-color: rgba(255, 255, 255, 0.9);
+	display: none;
+	width: 100px;
+	height: 50px;
+	margin-left: -50px;
+	left: 50%;
+	top: 0;
+	text-indent: -999em;
+	position: fixed;
+	border-radius: 0 0 2px 2px;
+	-moz-box-shadow: 0 2px 5px rgba(20, 30, 50, 0.1);
+	-webkit-box-shadow: 0 2px 5px rgba(20, 30, 50, 0.1);
+	box-shadow: 0 2px 5px rgba(20, 30, 50, 0.1);
+	z-index: 2000;
+}
+
+/* Header */
+
+header .navbar {
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid $borderColor;
+	.brand { /*Logo*/
+		padding: 0;
+		margin: 0;
+	}
+	.navbar-collapse {
+		padding-right: 0;
+		margin-right: -10px;
+	}
+	.navbar-inner {
+		border: 0;
+		padding: 0;
+	}
+	.navbar-nav {
+		margin: 0;
+	}
+	.nav > li {
+		margin: 10px 15px 10px;
+		text-transform: uppercase;
+		font-size: 15px;
+		line-height: 30px;
+		> a {
+			padding: 0 0 2px 0;
+			color: $textColor;	
+			.glyphicon {
+				vertical-align: top;
+			}	
+			&:hover, &:focus {
+				background: transparent !important;
+			}
+		}
+		.dropdown-menu {
+			min-width: 180px;
+			top: 120%;
+			li {
+				text-transform: none;
+				font-size: 14px;
+				.badge-info {
+					margin-left: 10px;
+					background: darken($mainColor, 10%);
+				}
+				a:hover, a:focus {
+					color: darken($mainColor, 10%);
+					background: none;
+				}
+			}
+
+		}
+		&:hover, &:focus {
+			background: transparent !important;
+		}
+	}
+	.nav .open > a, 
+	.nav .open > a:hover, 
+	.nav .open > a:focus {
+		background-color: transparent !important;
+	}
+	li.active {
+		> a {
+			border-bottom: 2px solid $mainColor !important;
+		}
+		.dropdown-toggle {
+			background: #fff;
+		}
+	}
+	.navbar-toggle { /*Nav button for mobile*/
+		right: 0;
+		margin-right: 0;
+		border: none;
+		background-image: none;
+		background: $darkGray;
+		&:hover {
+			background: $Gray;
+		}
+	}
+}
+
+/* Main area */
+
+h1 {
+	font-size: 20px;
+	line-height: normal;
+	font-weight: normal;
+	border-bottom: 2px solid $mainColor;
+	padding-bottom: 10px;
+	margin-bottom: 35px;
+	span {
+		color: $mainColor;
+	}
+}
+h5 {
+	color: $mainColor;
+	font-size: 15px;
+}
+.gray {
+	color: $textGray;
+}
+
+
+/* Other pages */
+.docs_page {
+	p, li {
+		margin: 0 0 10px;
+		font-size: 17px;
+		line-height: 24px;
+	}
+	table {
+		min-width: 700px;
+	}
+}
+code {
+	white-space: normal;
+	word-break: break-word;
+}
+
+
+/* Main page */
+.bs-docs-section {
+	a {
+		text-decoration: underline;
+	}
+	.jumbotron {
+		background: #fff;
+		border: 1px solid $borderColor;
+		h1 {
+			font-size: 30px;
+		}
+		p a {
+			text-decoration: underline;
+		}
+	}
+	.bs-link-buttons {
+		padding: 0; 
+		margin: 0 0 30px; 
+		list-style: none;
+		li {
+			display: inline-block; 
+			margin-right: 10px;
+			&.current-version {
+				color: $mainColor;
+			}
+		}
+		a {
+			text-decoration: none;
+		}
+	}
+	.bs-docs-tech {
+		margin: 0;
+		background: $mainColor;
+		color: #fff;
+		display: table;
+		position: relative;
+		a {
+			text-decoration: none;
+		}
+		> div {
+			border-right: 1px solid darken($mainColor, 5%);
+			border-left: 1px solid lighten($mainColor, 5%);
+			display: table-cell;
+			float: none;
+			
+			padding-bottom: 60px;
+			&:first-child {
+				border-left: none;
+			}
+			&:last-child {
+				border-right: none;
+			}
+		}
+		.bs-docs-details {
+			position: relative;
+		}
+		h2 a,
+		p a	{
+			color: #fff;			
+			&:hover {
+				color: #1f1f1f !important;
+			}
+		}
+		p {
+			font-size: 16px;
+			a {
+				text-decoration: underline;
+			}
+		}
+		.btn {
+			margin: 20px 0 10px;
+			position: absolute;
+			bottom: 10px;
+			&:hover, &:focus {
+				background: darken($mainColor, 5%) !important;
+			}
+		}
+	}
+}
+
+/* Aside menu*/
+
+.bs-sidebar {
+	.bs-sidenav {
+		margin-top: 30px;
+		margin-bottom: 30px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-shadow: 0 1px 0 #fff;
+		background-color: #f7f5fa;
+		.active > a {
+			border-right: 2px solid $mainColor;
+			color: $mainColor;
+		}		
+	}
+	.nav li a {
+		font-weight: bold;
+	}
+	.nav .nav li a {
+		font-weight: normal;
+		padding: 10px 15px 10px 25px;
+	}
+}
+
+
+/* Example page*/
+
+.bs-docs-section {
+	.page-header {
+		padding: 0;
+		border: none;
+		h1 {
+			font-size: 27px;
+		}
+	}
+	h3 {
+		font-size: 22px;
+	}
+	.sub_title {
+		font-size: 14px;
+		font-weight: bold;
+		color: $textGray;
+		text-transform: uppercase;
+		margin-top: 20px;
+	}
+	.bs-example {
+		position: relative;
+		padding: 15px;
+		background-color: #fafafa;
+		border: 1px solid $borderColor;
+		margin-bottom: -1px;
+		&.bs-img-example {
+			background: #fff;
+			img {
+				max-width: 100%;
+				cursor: pointer;
+			}
+		}
+	}
+	.highlight {
+		padding: 9px 14px;
+		margin-bottom: 14px;
+		background-color: #f7f7f9;
+		border: 1px solid $borderColor;
+		pre {
+			padding: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			background-color: transparent;
+			border: 0;
+			white-space: nowrap;
+		}
+	}
+}
+
+/* Tabs for example */
+
+.docs_tabs {
+	margin-top: 30px;
+	.navbar {
+		margin: 0;
+		border-bottom: none;
+		.navbar-toggle:focus {
+			outline: none;
+		}
+		.active a {
+			background: #fff !important;
+		}
+	}
+	.tab-content {
+		padding: 30px 20px 20px;
+		border: 1px solid #dddddd;
+		border-top: none;
+		pre.prettyprint {
+			border: none;
+			background: #fff;
+		}
+	}
+}
+
+
+/* Error pages */
+
+.error_page {
+	.brand {
+		margin-bottom: 20px;
+		display: inline-block;
+	}
+	h1 {
+		font-size: 30px;
+		.glyphicon:before {
+			font-size: 30px;
+		}
+	}
+	h2 {
+		font-size: 20px;
+		color: $textGray;
+	}
+	.btn {
+		margin-right: 5px;
+		padding: 4px 12px;
+		border: 1px solid #CCC;
+		border-bottom: 2px solid $mainColor;
+		text-transform: uppercase;
+		font-size: 17px;
+		&:last-child {
+			border-bottom: 2px solid darken($mainColor, 10%);
+		}
+	}
+	.icon {
+		width: 50px;
+		height: 50px;
+		display: inline-block;
+		vertical-align: middle;
+		margin-top: -10px;
+		&.icon-unauthorized {
+			background: url(../images/icn-err_unauth.png) 0 0 no-repeat;
+		}
+		&.icon-notfound {
+			background: url(../images/icn-err_notfound.png) 0 0 no-repeat;
+		}
+		&.icon-error {
+			background: url(../images/icn-err_error.png) 0 0 no-repeat;
+		}
+	}
+}
+
+/* Footer */
+
+.footer {
+	background: $BlueLight2;
+	padding: 20px;
+	margin-top: 20px;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		li {			
+			margin-bottom: 5px;
+			font-size: 14px;
+			display: inline-block;
+			margin-right: 5px;
+			&.version {
+				margin: 0;
+				color: #999;
+				font-size: 12px;
+			}
+		}
+	}
+	a {
+		color: $mainColor;
+	}
+	.hosted {
+		clear: both;
+		margin: 0;
+	}
+}
+
+.affix {
+	position: fixed;
+}
+.affix-bottom {
+	position: absolute;
+}
+.bs-sidebar.affix {
+	position: fixed;
+	top: 0;
+}
+
+
+/* Other color schemes */
+
+/* BLUE*/
+
+body.blue {
+	a:hover, a:focus {
+		color: darken($Blue, 10%);
+	}
+	.btn-default {
+		background: darken($Blue, 10%);	
+		border: 1px solid $Blue;
+		&:hover, &:focus {
+			background: $Blue !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Blue;
+			}
+			a:hover, a:focus {
+				color: darken($Blue, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Blue !important;
+		}
+	}
+	h1 {
+		border-color: $Blue;
+	}
+	h1 span,
+	h5 {
+		color: $Blue;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Blue;
+		}
+		.bs-docs-tech {
+			background: $Blue;
+			> div {
+				border-right-color: darken($Blue, 5%);
+				border-left-color: lighten($Blue, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Blue, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Blue;
+		color: $Blue;
+	}
+	.error_page .btn {
+		border-bottom-color: $Blue;
+		&:last-child {
+			border-bottom-color: darken($Blue, 10%);
+		}
+	}
+	.footer a {
+		color: $Blue;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Blue, 5%);
+			border-top-color: lighten($Blue, 5%);
+		}	
+	}	
+}
+
+/* GREEN*/
+
+body.green {
+	a:hover, a:focus {
+		color: darken($Green, 10%);
+	}
+	.btn-default {
+		background: darken($Green, 10%);
+		border: 1px solid $Green;		
+		&:hover, &:focus {
+			background: $Green !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Green;
+			}
+			a:hover, a:focus {
+				color: darken($Green, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Green !important;
+		}
+	}
+	h1 {
+		border-color: $Green;
+	}
+	h1 span,
+	h5 {
+		color: $Green;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Green;
+		}
+		.bs-docs-tech {
+			background: $Green;
+			> div {
+				border-right-color: darken($Green, 5%);
+				border-left-color: lighten($Green, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Green, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Green;
+		color: $Green;
+	}
+	.error_page .btn {
+		border-bottom-color: $Green;
+		&:last-child {
+			border-bottom-color: darken($Green, 10%);
+		}
+	}
+	.footer a {
+		color: $Green;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Green, 5%);
+			border-top-color: lighten($Green, 5%);
+		}	
+	}	
+}
+
+/* PURPLE*/
+
+body.purple {
+	a:hover, a:focus {
+		color: darken($Purple, 10%);
+	}
+	.btn-default {
+		background: darken($Purple, 10%);	
+		border: 1px solid $Purple;
+		&:hover, &:focus {
+			background: $Purple !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Purple;
+			}
+			a:hover, a:focus {
+				color: darken($Purple, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Purple !important;
+		}
+	}
+	h1 {
+		border-color: $Purple;
+	}
+	h1 span,
+	h5 {
+		color: $Purple;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Purple;
+		}
+		.bs-docs-tech {
+			background: $Purple;
+			> div {
+				border-right-color: darken($Purple, 5%);
+				border-left-color: lighten($Purple, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Purple, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Purple;
+		color: $Purple;
+	}
+	.error_page .btn {
+		border-bottom-color: $Purple;
+		&:last-child {
+			border-bottom-color: darken($Purple, 10%);
+		}
+	}
+	.footer a {
+		color: $Purple;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Purple, 5%);
+			border-top-color: lighten($Purple, 5%);
+		}	
+	}	
+}
+
+/* ORANGE*/
+
+body.orange {
+	a:hover, a:focus {
+		color: darken($Orange, 10%);
+	}
+	.btn-default {
+		background: darken($Orange, 10%);
+		border: 1px solid $Orange;		
+		&:hover, &:focus {
+			background: $Orange !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Orange;
+			}
+			a:hover, a:focus {
+				color: darken($Orange, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Orange !important;
+		}
+	}
+	h1 {
+		border-color: $Orange;
+	}
+	h1 span,
+	h5 {
+		color: $Orange;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Orange;
+		}
+		.bs-docs-tech {
+			background: $Orange;
+			> div {
+				border-right-color: darken($Orange, 5%);
+				border-left-color: lighten($Orange, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Orange, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Orange;
+		color: $Orange;
+	}
+	.error_page .btn {
+		border-bottom-color: $Orange;
+		&:last-child {
+			border-bottom-color: darken($Orange, 10%);
+		}
+	}
+	.footer a {
+		color: $Orange;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Orange, 5%);
+			border-top-color: lighten($Orange, 5%);
+		}	
+	}	
+}
+
+/* almost BLACK*/
+
+body.black {
+	a:hover, a:focus {
+		color: darken($Black, 10%);
+	}
+	.btn-default {
+		background: darken($Black, 10%);
+		border: 1px solid $Black;		
+		&:hover, &:focus {
+			background: $Black !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Black;
+			}
+			a:hover, a:focus {
+				color: darken($Black, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Black !important;
+		}
+	}
+	h1 {
+		border-color: $Black;
+	}
+	h1 span,
+	h5 {
+		color: $Black;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Black;
+		}
+		.bs-docs-tech {
+			background: $Black;
+			> div {
+				border-right-color: darken($Black, 5%);
+				border-left-color: lighten($Black, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Black, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Black;
+		color: $Black;
+	}
+	.error_page .btn {
+		border-bottom-color: $Black;
+		&:last-child {
+			border-bottom-color: darken($Black, 10%);
+		}
+	}
+	.footer a {
+		color: $Black;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Black, 5%);
+			border-top-color: lighten($Black, 5%);
+		}	
+	}	
+}
+
+/* responsive for fixed menu */
+
+@media screen and (min-width: 920px) {
+	.bs-sidebar.affix-bottom, 
+	.bs-sidebar.affix {
+		width: 214px;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	.bs-sidebar.affix-bottom, 
+	.bs-sidebar.affix {
+		width: 229px;
+	}
+	.select_theme {
+		display: block;
+	}
+}
+
+
+@media screen and (max-width: 959px) {
+	
+	.bs-docs-section .bs-docs-tech {
+		display: block;
+		> div {
+			border: none;
+			border-bottom: 1px solid darken($mainColor, 5%);
+			border-top: 1px solid lighten($mainColor, 5%);
+			display: block;
+			padding-bottom: 0;
+		}
+		.btn {
+			position: relative;
+		}
+	}
+}
+
+@media (max-width: 756px) {
+	.brand img {
+		max-width: 230px;
+	}	
+	.pull-right { /* Enable use of floated navbar text */
+		float: none !important;
+	}
+	.navbar {
+		padding: 0;
+		.nav-collapse {
+			margin-top: 0;
+		}
+	}
+	
+	.navbar .dropdown-menu {
+		border: 0;
+		a {
+			font-size: 18px;
+		}
+	}
+	.row {
+		margin-right: 0;
+		margin-left: 0;
+	}	
+	.bs-table-scrollable {
+		width: 100%;
+		margin-bottom: 15px;
+		overflow-y: hidden;
+		overflow-x: scroll;
+		border: 1px solid #DDD;		
+	}
+	
+	.footer {
+		padding: 10px;
+		.pull-right {
+			margin-top: 10px;
+		}
+	}
+}
+
+
+/* Aditional css */
+
+.navbar{
+	.navbar-header{
+		.brand-text{
+			padding-top : 20px;
+		}
+	}
+}
+
+/*Youtube Embed Responsive*/
+
+.flex-video {
+  position: relative;
+  padding-top: 25px;
+  padding-bottom: 67.5%;
+  height: 0;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+ 
+.flex-video.widescreen { padding-bottom: 57.25%; }
+.flex-video.vimeo { padding-top: 0; }
+ 
+.flex-video iframe,
+.flex-video object,
+.flex-video embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
+  .flex-video { padding-top: 0; }
+}
+
+/* Other Fix */
+.panel-default {
+    border-color: $White;
+   .panel-heading {
+    color: #333333;
+    background-color: $BlueLight2;
+   }
+}   
