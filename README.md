@@ -11,7 +11,7 @@
   - users with star points can advance their song to the top of the playlist
     <p> <i>Regular songs will have a different color from the songs advanced through star points. A legend will indicate their nature. </i></p>
   
-   Unregistered users can:
+   <pre> Unregistered users can:
   - listen to the radio
   - see the playlist </pre>
   
