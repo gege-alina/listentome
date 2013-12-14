@@ -10,12 +10,32 @@
             </div>
 
         <div class="collapse navbar-collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav pull-left">
+                <li><a href=<%= root_url %>>Home</a></li>
+                <li><a href=<%= root_url + "static_pages/about"%>>About</a></li>
+               
+            </ul>
+
             <ul class="nav navbar-nav pull-right">
-                <li><a href="/">Home</a></li>
-                <li><a href="/static_pages/about">About</a></li>
-                <li><%= link_to 'Sign In', :controller => "devise/sessions", :action => "new" %></li>
-                <li><%= link_to 'Sign Up', :controller => "devise/registrations", :action => "new" %></li>
-                <li><%= link_to 'Sign Out', :controller => "devise/sessions", :action => "destroy" %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'Sign Out', :controller => "devise/sessions", :action => "destroy" %></li>
+            <% else %>
+              <li class="dropdown">
+                <a id="eLabel" role="button" data-toggle="dropdown" href="javascript:void(0);">Sing up <span class="caret"></span></a>
+                <div class="dropdown-menu" style="padding:20px 50px 20px 40px;" role="menu" aria-labelledby="eLabel">
+                  <%= render "/devise/registrations/new" %>
+                </div>
+              </li>
+
+              <li class="dropdown">
+                <a id="eLabel" role="button" data-toggle="dropdown" href="javascript:void(0);">Sing in <span class="caret"></span></a>
+                <div class="dropdown-menu" style="padding:20px 50px 20px 40px;" role="menu" aria-labelledby="eLabel">
+                  <%= render "/devise/sessions/new" %>
+                </div>
+                </li>
+            <% end %>
+                
+                
             </ul>
         </div>
     </div>
