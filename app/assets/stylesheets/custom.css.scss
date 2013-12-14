@@ -6,7 +6,7 @@ $textColor: #212121;
 $borderColor: #e8e8e8;
 
 /* Custom colors for site */
-$Blue: #559ed6;
+$White: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
@@ -19,10 +19,7 @@ html {
 	overflow-y: scroll !important; 
 }
 body {
-	max-width: 1024px;
-	margin: 20px auto 0;
-	padding: 0 10px;
-	width: 99%;
+	margin: auto;
 	font-size: 17px;
 	background-color: $DarkBlue;
 }
@@ -91,10 +88,6 @@ header .navbar {
 	.brand { /*Logo*/
 		padding: 0;
 		margin: 0;
-	}
-	.navbar-collapse {
-		padding-right: 0;
-		margin-right: -10px;
 	}
 	.navbar-inner {
 		border: 0;
@@ -431,6 +424,13 @@ code {
 /* Footer */
 
 .footer {
+	bottom: 0;
+	display: block;
+	left: 0;
+	margin-bottom: 0;
+	position: fixed;
+	right: 0;
+	z-index: 1030;
 	background: $DarkBlue2;
 	padding: 20px;
 	margin-top: 20px;
@@ -477,67 +477,67 @@ code {
 
 body.blue {
 	a:hover, a:focus {
-		color: darken($Blue, 10%);
+		color: darken($White, 10%);
 	}
 	.btn-default {
-		background: darken($Blue, 10%);	
-		border: 1px solid $Blue;
+		background: darken($White, 10%);	
+		border: 1px solid $White;
 		&:hover, &:focus {
-			background: $Blue !important;			
+			background: $White !important;			
 		}
 	}
 	.navbar {
 		.nav > li .dropdown-menu li {
 			.badge-info {
-				background: $Blue;
+				background: $White;
 			}
 			a:hover, a:focus {
-				color: darken($Blue, 10%);
+				color: darken($White, 10%);
 			}
 		}
 		li.active > a {
-			border-color: $Blue !important;
+			border-color: $White !important;
 		}
 	}
 	h1 {
-		border-color: $Blue;
+		border-color: $White;
 	}
 	h1 span,
 	h5 {
-		color: $Blue;
+		color: $White;
 	}
 	.bs-docs-section {
 		.bs-link-buttons li.current-version {
-			color: $Blue;
+			color: $White;
 		}
 		.bs-docs-tech {
-			background: $Blue;
+			background: $White;
 			> div {
-				border-right-color: darken($Blue, 5%);
-				border-left-color: lighten($Blue, 5%);
+				border-right-color: darken($White, 5%);
+				border-left-color: lighten($White, 5%);
 			}
 		}
 		.btn:hover, .btn:focus {
-			background: darken($Blue, 5%) !important;
+			background: darken($White, 5%) !important;
 		}
 	}
 	.bs-sidebar .bs-sidenav .active > a {
-		border-color: $Blue;
-		color: $Blue;
+		border-color: $White;
+		color: $White;
 	}
 	.error_page .btn {
-		border-bottom-color: $Blue;
+		border-bottom-color: $White;
 		&:last-child {
-			border-bottom-color: darken($Blue, 10%);
+			border-bottom-color: darken($White, 10%);
 		}
 	}
 	.footer a {
-		color: $Blue;
+		color: $White;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
-			border-bottom-color: darken($Blue, 5%);
-			border-top-color: lighten($Blue, 5%);
+			border-bottom-color: darken($White, 5%);
+			border-top-color: lighten($White, 5%);
 		}	
 	}	
 }
@@ -945,4 +945,9 @@ body.black {
 
 .navbar {
 	border-radius:0px;
+}
+
+.main_container {
+	padding: 0 10px;
+	width: 99%;
 }
