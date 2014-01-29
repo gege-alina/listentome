@@ -8,6 +8,21 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
+	  <% if user_signed_in? %>
+		<div class="row" style="margin-bottom:20px">
+			<div class="col-lg-10 col-lg-offset-1">
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  				Adauga o noua melodie
+				</button>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				  	<%= render "songs/form" %>
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+			</div>
+		</div>
+	  <% end %>
 		<div class="panel panel-default">
   <!-- Default panel contents -->
 		  <div class="panel-heading">Playlist</div>

@@ -1,4 +1,5 @@
 Listentome::Application.routes.draw do
+  resources :songs
   get "static_pages/about"
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

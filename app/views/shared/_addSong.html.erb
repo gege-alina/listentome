@@ -1,5 +1,7 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
+<b>Ma gasesti la shared/_addSong</b>
+
  <div class="form-group">
     <%= f.label :username %><br />
     <%= f.text_field :username, :autofocus => true, :placeholder => "Enter username", :class => "form-control" %>
@@ -22,3 +24,4 @@
 <% end %>
 
 <%= link_to "Forgot your password?", new_password_path(resource_name) ,:class => "btn btn-info"%><br />
+
