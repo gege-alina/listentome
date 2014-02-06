@@ -1,7 +1,13 @@
 Listentome::Application.routes.draw do
   resources :songs
   get "static_pages/about"
+<<<<<<< HEAD
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+=======
+  
+  devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
+
+>>>>>>> 3d00abe1f1dc6004847a399965ce9fc1c9f45abd
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
