@@ -18,8 +18,12 @@
 
             <ul class="nav navbar-nav pull-right">
             <% if user_signed_in? %>
+<<<<<<< HEAD
+             <li><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></li>
+=======
             
               <li><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></li>
+>>>>>>> 3d00abe1f1dc6004847a399965ce9fc1c9f45abd
             <% else %>
               <li class="dropdown">
                 <a id="eLabel" role="button" data-toggle="dropdown" href="javascript:void(0);">Sing up <span class="caret"></span></a>
