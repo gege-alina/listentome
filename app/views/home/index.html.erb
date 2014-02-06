@@ -26,13 +26,24 @@
 		<div class="panel panel-default">
   <!-- Default panel contents -->
 		  <div class="panel-heading">Playlist</div>
+<p> <%= @titlu %>  </p>
 		  <!-- List group -->
 		  <ul class="list-group">
-		    <li class="list-group-item"><a href="#">Lasa-mi toamna pomii verzi</a></li>
-		    <li class="list-group-item"><a href="#">Lasa-mi toamna pomii verzi</a></li>
-		    <li class="list-group-item"><a href="#">Lasa-mi toamna pomii verzi</a></li>
-		    <li class="list-group-item"><a href="#">Lasa-mi toamna pomii verzi</a></li>
-		    <li class="list-group-item"><a href="#">Lasa-mi toamna pomii verzi</a></li>
+		  <% if @songs %>
+		  <% @songs.each do |song| %>
+		   @var = <%= song.link %>
+		   @cod = eval(@var)
+		    <li class="list-group-item"><a href="" + @cod + ""><%= song.title %></a></li>
+		    <li class="list-group-item"><a href="#"><%= song.title %></a></li>
+		    <li class="list-group-item"><a href="#"><%= song.title %></a></li>
+		    <li class="list-group-item"><a href="#"><%= song.title %></a></li>
+		    <li class="list-group-item"><a href="#"><%= song.title %></a></li>
+		    <% end %>
+		    <% else %>
+		    <li class="list-group-item"><a href="#">Ccccc</a></li>
+		    <li class="list-group-item"><a href="#"><%= @song.id %></a></li>
+
+		    <% end %>
 		  </ul>
 		</div>
 	</div>
