@@ -7,8 +7,8 @@ gem 'rails', '4.0.2'
 # Use postgreSQL - for production 
 
 gem 'sqlite3', :group => [:development, :test]
-gem 'pg','rails_12factor', :group => [:production]
-
+gem 'pg', :group => [:production]
+gem 'rails_12factor', :group => [:production]
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
