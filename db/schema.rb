@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20131214134208) do
     t.integer  "points"
     t.string   "avatar_url"
     t.string   "username"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

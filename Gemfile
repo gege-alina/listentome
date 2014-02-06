@@ -3,7 +3,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-gem 'pg'
+gem 'pg', group: :production
+
+gem 'sqlite3', group: :development
+
+gem 'sqlite3', group: :test 
 
 gem 'rails_12factor', group: :production
 
@@ -32,6 +36,10 @@ gem 'devise'
 
 # Bootstrap
 gem 'bootstrap-sass'
+
+# Facebook OAuth
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
