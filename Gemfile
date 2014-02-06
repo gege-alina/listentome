@@ -6,16 +6,9 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record - for developing 
 # Use postgreSQL - for production 
 
-group :production do
-   # PostgreSQL database 
-   gem 'pg'
-   #  static asset serving and logging on Heroku
-   gem 'rails_12factor'
-end
+gem 'sqlite3', :group => [:development, :test]
+gem 'pg','rails_12factor', :group => [:production]
 
-group :development, :testing do
-   gem 'sqlite3'
-end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
