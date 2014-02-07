@@ -6,9 +6,7 @@ class SongsController < ApplicationController
   def index
     @songs = Song.all
     @song = Song.last
-    @titlu = Song.last.title
 
-  end
 end
 
   # GET /songs/1
