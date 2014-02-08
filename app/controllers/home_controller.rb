@@ -36,4 +36,12 @@ class HomeController < ApplicationController
 	  user_song.save
 	end
 
+	def boostSong
+	song = Song.order(boost: :desc).limit(1)
+	song.playing = true
+	song.playlist = false
+	song.save
+
+	end
+
 end
