@@ -25,5 +25,10 @@ e.preventDefault();
 };
 
 $(document).ready(function () {
-        var ctrl = new HomeIndex();
+    var ctrl = new HomeIndex();
+
+
+    
+
  });
+
