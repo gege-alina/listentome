@@ -78,7 +78,6 @@ end
 
   def boostSong
    @song = UserSong.where(user_id: params[:user_id])
-   puts "asd" 
    @user = User.where(id: params[:id])
    if @user.points=0 or !@user.points
     return false
@@ -87,7 +86,6 @@ end
         @user.save
         @song.boost = @song.boost+1
         @song.save
-        puts "asd2" 
         return true
     end
   end
