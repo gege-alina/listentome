@@ -12,14 +12,14 @@ HomeIndex.prototype.selectors = {
 	listItemSelector : '.list-group-item',
 	modalSelector : '.js-modalContainer',
 	closeModalSelector : '.js-closeForm',
-	saveModalSelector : '.js-saveForm'
-
+	saveModalSelector : '.js-saveForm',
+ 	songVoteSelector : '.js-songVote'
 };
 
 HomeIndex.prototype._addDelegates = function(){
 
 $(this.selectors.listSelector).find(this.selectors.listItemSelector).on('click', $.proxy(this._preventDefaultListItem,this));
-
+$(this.selectors.listSelector).find(this.selectors.songVoteSelector).on('click', $.proxy(this._songVoteAction,this));
 };
 
 HomeIndex.prototype._preventDefaultListItem = function(e){
@@ -28,11 +28,22 @@ e.preventDefault();
 
 };
 
+HomeIndex.prototype._songVoteAction = function(e){
+ 	e.preventDefault();
+ 	
+ 	var songId=$(e.currentTarget).data('song_id');
+ 	var ajaxUrl = '/songs#boostSong/' + songId;
+		$.ajax({
+	    url: ajaxUrl,
+	    success: function(data)
+        {
+          console.log(data)
+        }
+	});
+ };
+
 $(document).ready(function () {
     var ctrl = new HomeIndex();
-
-
-    
 
  });
 
