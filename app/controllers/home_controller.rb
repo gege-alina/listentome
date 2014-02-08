@@ -37,10 +37,10 @@ class HomeController < ApplicationController
 	end
 
 	def boostSong
-	song = Song.order(boost: :desc).limit(1)
-	song.playing = true
-	song.playlist = false
-	song.save
+	  song = Song.order(boost: :desc).limit(1)
+	  song.playing = true
+	  song.playlist = false
+	  song.save
 
 	end
 
