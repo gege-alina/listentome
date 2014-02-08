@@ -5,7 +5,9 @@ class SongsController < ApplicationController
   # GET /songs.json
   def index
     @songs = Song.all
-  end
+    @song = Song.last
+
+end
 
   # GET /songs/1
   # GET /songs/1.json
@@ -73,5 +75,10 @@ class SongsController < ApplicationController
 
       # params[:song]
     end
+
+  def boostSong(user_id)
+   @song = UserSong.find(params[:user_id])
+   @song.boost = @song.boost+1
+  end
 
 end
