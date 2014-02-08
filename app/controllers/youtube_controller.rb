@@ -13,9 +13,9 @@ end
 
 def youtube_data(youtube_id) 
   if validate_id(youtube_id) == "200"
-    puts "Video is good"
+    return true
   else 
-  	puts "Video is no longer valid"
+  	return false
   end
 end
 
