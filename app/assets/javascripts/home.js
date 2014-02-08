@@ -1,6 +1,7 @@
 var HomeIndex = function () {
         this._initHome();
 
+
 };
 
 HomeIndex.prototype._initHome = function(){
@@ -18,7 +19,10 @@ HomeIndex.prototype.selectors = {
 	youtubeLinkSelector : '.js-youtubeLink',
 	bodyContainerSelector : '.js-bodyContainer',
 	errorHolderSelector : '.js-errorHolder',
- 	songVoteSelector : '.js-songVote'
+ 	songVoteSelector : '.js-songVote',
+ 	songDescriptionSelector : '.js-songDescription',
+ 	documentSelector : '.js-document',
+ 	anchorRemoveSelector : '.remove-anchor'
 
 };
 
@@ -26,6 +30,8 @@ HomeIndex.prototype._addDelegates = function(){
 
 $(this.selectors.listSelector).find(this.selectors.listItemSelector).on('click', $.proxy(this._preventDefaultListItem,this));
 
+
+$(this.selectors.documentSelector).find(this.selectors.anchorRemoveSelector).on('click', $.proxy(this._preventDefaultListItem,this));
 // modal stuff
 
 var $modalContainer = $(this.selectors.modalSelector);
@@ -58,12 +64,11 @@ HomeIndex.prototype._addSong = function(container, e){
 
 	var title = container.find(this.selectors.songTitleSelector).val();
 	var youtubeLink = container.find(this.selectors.youtubeLinkSelector).val();
+	var description = container.find(this.selectors.songDescriptionSelector).val();
 
 
 	var youtubeId = this.getYoutubeId(youtubeLink);
 
-
-	// va trebui modificat ( chestie vizuala, append un warning )
 	if(youtubeId === ''){
 
 		container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger>Error! Youtube link is invalid. </div>');
@@ -73,7 +78,8 @@ HomeIndex.prototype._addSong = function(container, e){
 		var data = {
 
 			title : title, 
-			youtubeId : youtubeId
+			youtubeId : youtubeId,
+			desc : description
 
 		};
 
@@ -148,6 +154,7 @@ HomeIndex.prototype._closeModal = function(container,e){
 	container.find(this.selectors.errorHolderSelector).empty();
 	container.find(this.selectors.songTitleSelector).val('');
 	container.find(this.selectors.youtubeLinkSelector).val('');
+	container.find(this.selectors.songDescriptionSelector).val('');
 
 };
 

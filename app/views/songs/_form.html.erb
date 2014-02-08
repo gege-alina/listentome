@@ -8,6 +8,11 @@
         <%= f.text_field :title, :autofocus => true, :placeholder => "Enter title", :class => "js-songTitle form-control" %>
       </div>
 
+      <div class="form-group ">
+      <%= f.label :description %><br />
+      <%= f.text_area :desc , :placeholder => "Enter your description", :class => "js-songDescription our-textarea form-control" %>
+      </div>
+
       <div class="form-group  ">
         <%= f.label :link %><br />
         <%= f.text_field :link, :placeholder => "Enter youtube link", :class => "js-youtubeLink  form-control" %>
