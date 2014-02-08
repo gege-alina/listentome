@@ -25,24 +25,22 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
  def create
-    @song = Song.new(song_params)
 
-    respond_to do |format|
+    @song = Song.new(:title => params[:title],:link => params[:youtubeId])
+
       if @song.save
         
         @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
 
         if @us.save
-          format.html { redirect_to :controller=>'home', :action => 'index' }
+          render :text => '{ "status":true }'
         else
-          format.html { render action: 'new' }
-          format.json { render json: @us.errors, status: :unprocessable_entity }
+          render :text => '{ "status":false }'
         end
       else
-        format.html { render action: 'new' }
-        format.json { render json: @song.errors, status: :unprocessable_entity }
+        render :text => '{ "status":false }'
       end
-    end
+      
   end 
 
   # PATCH/PUT /songs/1
@@ -78,9 +76,7 @@ class SongsController < ApplicationController
    user = User.find(us.user_id)
    
    if user.points == 0
-      respond_to do |format|
         render :text => '{ "status":false }'
-      end
    else 
       user.points = user.points-1
       user.save

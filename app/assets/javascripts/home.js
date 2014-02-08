@@ -17,7 +17,7 @@ HomeIndex.prototype.selectors = {
 	songTitleSelector : '.js-songTitle',
 	youtubeLinkSelector : '.js-youtubeLink',
 	bodyContainerSelector : '.js-bodyContainer',
-	errorHolderSelector : '.js-errorHolder'
+	errorHolderSelector : '.js-errorHolder',
  	songVoteSelector : '.js-songVote'
 
 };
@@ -87,22 +87,40 @@ HomeIndex.prototype._addSong = function(container, e){
 
 HomeIndex.prototype._addSongAjaxCall = function(data){
 
-
-	console.log('Titlu: ' + data.title);
-	console.log('Id: ' + data.youtubeId);
-
   $.ajax({
-  url: "/search/get_listing?listing_id" + id,
+  url: '/songs#create',
   dataType: 'JSON',
-  success: function(data) {
-    var listing = JSON.parse(data);
-    $("#modalPrice").html(data.city);
-  }
+  data: data,
+  type: 'POST',
+  success: $.proxy(this._addSongAjaxSuccess,this)
+
 });
 
 };
 
+HomeIndex.prototype._addSongAjaxSuccess = function(data,response){
 
+if( data != null && typeof data !== 'undefined'){
+
+		if(data.status = true){
+
+		console.log('Treaba Buna');
+
+
+		}else{
+
+		console.log('Treaba Nasoala');
+		
+
+		}
+
+}
+else {
+
+	console.log('EROARE SERVER!')
+}
+
+};
 
 
 // prelucrare link -> returnam Id-ul sau o sa ii afisam un mesaj de eroare, rugam sa retrimita alt video ( momentan alert ) 
@@ -153,4 +171,4 @@ HomeIndex.prototype._songVoteAction = function(e){
 
 $(document).ready(function () {
     var ctrl = new HomeIndex();    
- };
+ });
