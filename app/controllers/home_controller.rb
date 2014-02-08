@@ -21,14 +21,14 @@ class HomeController < ApplicationController
 	end
 
 	def addPointsToUser
-	  @user_song = UserSong.where(song_id: song_id_param)
+	  user_song = UserSong.where(song_id: params[:song_id]).first
 
-	  @user = User.where(id: @user_song.user_id)
-	  @user.points += @user_song.boost
-	  @user.save
+	  user = User.find(user_song.user_id)
+	  user.points += user_song.boost
+	  user.save
 
-	  @user_song.boost = 0
-	  @user_song.save
+	  user_song.boost = 0
+	  user_song.save
 	end
 
 end
