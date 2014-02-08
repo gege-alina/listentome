@@ -69,17 +69,25 @@ class SongsController < ApplicationController
     end
   end
 
+  # boostSong
+
   def boostSong
-   @song = UserSong.where(user_id: params[:user_id])
-   @user = User.where(id: params[:id])
-   if @user.points=0 or ! @user.points
-      return false
+   
+   us = UserSong.where(song_id: params[:song_id]).first
+
+   user = User.find(us.user_id)
+   
+   if user.points == 0
+      respond_to do |format|
+        render :text => '{ "status":false }'
+      end
    else 
-        @user.points = @user.points-1
-        @user.save
-        @song.boost = @song.boost+1
-        @song.save
-      return true
+      user.points = user.points-1
+      user.save
+        
+      us.boost = us.boost+1
+      us.save
+      render :text => '{ "status":true }'
     end
   end
 

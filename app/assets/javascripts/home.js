@@ -33,12 +33,11 @@ HomeIndex.prototype._songVoteAction = function(e){
  	
  	var songId=$(e.currentTarget).data('song_id');
 
-
- 	console.log(songId);
-
 	$.post( "/songs/boostSong", { song_id: songId } , function(data)
 		{
-			console.log(data);
+			
+			var object = JSON.parse(data);
+			console.log(object);
 		});
 
 
