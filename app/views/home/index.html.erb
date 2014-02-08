@@ -3,7 +3,8 @@
 		<!--<%= image_tag("videoframe.png", :alt => "video frame" , :class => "img-responsive") %>-->
 		<div class="col-lg-offset-2 col-lg-8">
 			<div class="flex-video widescreen">
-				<iframe src="//www.youtube.com/embed/U8VMYLniuDk" frameborder="0" allowfullscreen></iframe>
+			<!-- Forma generala pentru video youtube, autoplay 1, start = momentul de timp de pe site -->
+				<iframe src="https://youtube.com/v/JW5meKfy3fY&start=20&autoplay=1" frameborder="0" allowfullscreen></iframe>
 			</div>
 		</div>
 	</div>
@@ -15,7 +16,7 @@
   				Adauga o noua melodie
 				</button>
 				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class=" js-modalContainer modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				  	<%= render "songs/form" %>
 				  </div><!-- /.modal-dialog -->

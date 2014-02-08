@@ -9,7 +9,11 @@ HomeIndex.prototype._initHome = function(){
 HomeIndex.prototype.selectors = {
 
 	listSelector : '.list-group',
-	listItemSelector : '.list-group-item'
+	listItemSelector : '.list-group-item',
+	modalSelector : '.js-modalContainer',
+	closeModalSelector : '.js-closeForm',
+	saveModalSelector : '.js-saveForm'
+
 };
 
 HomeIndex.prototype._addDelegates = function(){
