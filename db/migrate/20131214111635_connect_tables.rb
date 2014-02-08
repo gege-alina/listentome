@@ -3,7 +3,7 @@ class ConnectTables < ActiveRecord::Migration
     create_table :user_songs do |t|
       t.belongs_to :user
       t.belongs_to :song
-      t.boolean :boost
+      t.integer :boost
       t.timestamps
     end
   end

@@ -6,7 +6,6 @@ $textColor: #212121;
 $borderColor: #e8e8e8;
 
 /* Custom colors for site */
-$White: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
@@ -42,6 +41,9 @@ body {
 
 .container-fluid {
 	padding: 0;
+}
+.container {
+	color: $White;
 }
 header .navbar-inner, header .navbar {
 	background: $DarkBlue2;
@@ -435,13 +437,15 @@ code {
 	z-index: 1040;
 	background: $DarkBlue2;
 	padding: 15px;
+	text-transform: uppercase;
+	font-size: 15px;
+	line-height: 30px;
 	ul {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
 		li {			
 			margin-bottom: 5px;
-			font-size: 14px;
 			display: inline-block;
 			margin-right: 5px;
 			&.version {
@@ -452,7 +456,7 @@ code {
 		}
 	}
 	a {
-		color: $mainColor;
+		color: $textColor;
 	}
 	.hosted {
 		clear: both;
@@ -533,7 +537,7 @@ body.blue {
 		}
 	}
 	.footer a {
-		color: $White;
+		color: $textColor;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
@@ -602,7 +606,7 @@ body.green {
 		}
 	}
 	.footer a {
-		color: $Green;
+		color: $textColor;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
@@ -671,7 +675,7 @@ body.purple {
 		}
 	}
 	.footer a {
-		color: $Purple;
+		color: $textColor;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
@@ -740,7 +744,7 @@ body.orange {
 		}
 	}
 	.footer a {
-		color: $Orange;
+		color: $textColor;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
@@ -809,7 +813,7 @@ body.black {
 		}
 	}
 	.footer a {
-		color: $Black;
+		color: $textColor;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
