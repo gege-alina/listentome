@@ -433,6 +433,7 @@ code {
 
 .footer {
 	bottom: 0;
+	color: $textColor !important;
 	display: block;
 	left: 0;
 	margin-bottom: 0;
@@ -458,9 +459,6 @@ code {
 				font-size: 12px;
 			}
 		}
-	}
-	a {
-		color: $textColor;
 	}
 	.hosted {
 		clear: both;
