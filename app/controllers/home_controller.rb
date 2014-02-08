@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
 		puts "ceva"
 		@song = Song.new
-		@songs = Song.all
+		@songs = Song.first(5)
 
 	  if user_signed_in?
 	  	@song = Song.new
@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
 
 	  if Song.all != nil
-	  	@songs = Song.all
+	  	@songs = Song.first(5)
 	  else
 	  	@songs = []
 	  end
