@@ -32,14 +32,16 @@ HomeIndex.prototype._songVoteAction = function(e){
  	e.preventDefault();
  	
  	var songId=$(e.currentTarget).data('song_id');
- 	var ajaxUrl = '/songs#boostSong/' + songId;
-		$.ajax({
-	    url: ajaxUrl,
-	    success: function(data)
-        {
-          console.log(data)
-        }
-	});
+
+
+ 	console.log(songId);
+
+	$.post( "/songs/boostSong", { song_id: songId } , function(data)
+		{
+			console.log(data);
+		});
+
+
  };
 
 $(document).ready(function () {
