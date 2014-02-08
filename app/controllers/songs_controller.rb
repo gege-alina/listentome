@@ -78,7 +78,6 @@ end
 
   def boostSong?
    @song = UserSong.where(user_id: params[:user_id])
-
    @user = User.where(id: params[:id])
    if @user.points=0 or !@user.points
     return false
