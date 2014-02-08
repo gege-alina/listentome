@@ -30,8 +30,7 @@ end
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to @song, notice: 'Song was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @song }
+        format.html { redirect_to :controller=>'home', :action => 'index' }
       else
         format.html { render action: 'new' }
         format.json { render json: @song.errors, status: :unprocessable_entity }
@@ -71,6 +70,10 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params[:song]
+      required = [:title, :link, :desc]
+      params.require(:song).permit(required)
+
+      # params[:song]
     end
+
 end
