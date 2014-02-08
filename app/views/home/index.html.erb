@@ -1,23 +1,26 @@
-<div class="row">
-	<div class="col-lg-8">
-		<!--<%= image_tag("videoframe.png", :alt => "video frame" , :class => "img-responsive") %>-->
-		<div class="col-lg-offset-2 col-lg-8">
-			<div class="flex-video widescreen">
-			<!-- Forma generala pentru video youtube, autoplay 1, start = momentul de timp de pe site -->
-				<iframe src="https://youtube.com/v/JW5meKfy3fY&start=20&autoplay=1" frameborder="0" allowfullscreen></iframe>
+	<div class="fluid-container">
+		<div class="col-lg-8 js-bodyContainer ">
+			<!--<%= image_tag("videoframe.png", :alt => "video frame" , :class => "img-responsive") %>-->
+			<div class="col-lg-offset-2 col-lg-8">
+				<div class="flex-video widescreen">
+				<!-- Forma generala pentru video youtube, autoplay 1, start = momentul de timp de pe site -->
+				  <embed src="https://youtube.com/v/<%= @youtubeId %>&start=<%= @startTime %>&autoplay=1"
+				         width="640" height="390"></embed>
+				</div>
 			</div>
 		</div>
+
 	</div>
 	<div class="col-lg-4">
 	  <% if user_signed_in? %>
 		<div class="row" style="margin-bottom:20px">
-			<div class="col-lg-10 col-lg-offset-1">
+			<div class="col-lg-10 col-lg-offset-3">
 				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   				Add a new song
 				</button>
 				<!-- Modal -->
-				<div class=" js-modalContainer modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
+				<div class=" js-modalContainer modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:700px">
+				  <div class="modal-dialog modal-sm">
 				  	<%= render "songs/form" %>
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
@@ -30,11 +33,12 @@
 		  <!-- List group -->
 		  <ul class="list-group">
 		  <% @songs.each do |song| %>
-		      <li class="list-group-item"><a href="#"><%= song.title %></a>
-		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span>
+		      <li class="list-group-item"><a href="#"><%= song.title%></a>
+		      <p class='pull-right'><%= song.UserSong.boost %></p> 
+		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span> 
 		      </li>
 		    <% end %>
 		  </ul>
+
 		</div>
 	</div>
-</div>
