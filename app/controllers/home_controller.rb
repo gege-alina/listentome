@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
 
 	  if Song.all != nil
-	  	@songs = Song.first(5)
+	  	@songs = Song.joins(:UserSong).first(5)
 	  else
 	  	@songs = []
 	  end

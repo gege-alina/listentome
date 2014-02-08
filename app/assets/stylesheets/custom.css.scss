@@ -27,6 +27,10 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
+.modal
+{
+    overflow-y: auto;
+}
 
 %box_sizing-border_box {
 	-webkit-box-sizing: border-box;
