@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20131214134208) do
   create_table "user_songs", force: true do |t|
     t.integer  "user_id"
     t.integer  "song_id"
-    t.boolean  "boost"
+    t.integer  "boost"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
