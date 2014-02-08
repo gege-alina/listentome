@@ -16,8 +16,8 @@
   				Add a new song
 				</button>
 				<!-- Modal -->
-				<div class=" js-modalContainer modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
+				<div class=" js-modalContainer modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:700px">
+				  <div class="modal-dialog modal-sm">
 				  	<%= render "songs/form" %>
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
@@ -30,8 +30,9 @@
 		  <!-- List group -->
 		  <ul class="list-group">
 		  <% @songs.each do |song| %>
-		      <li class="list-group-item"><a href="#"><%= song.title %></a>
-		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span>
+		      <li class="list-group-item"><a href="#"><%= song.title%></a>
+		      <p class='pull-right'><%= song.UserSong.boost %></p> 
+		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span> 
 		      </li>
 		    <% end %>
 		  </ul>

@@ -7,7 +7,7 @@ class HomeController < ApplicationController
 
 
 	  if Song.all != nil
-	  	@songs = Song.all
+	  	@songs = Song.joins(:UserSong).all
 	  else
 	  	@songs = []
 	  end
