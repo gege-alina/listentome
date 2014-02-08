@@ -76,4 +76,9 @@ end
       # params[:song]
     end
 
+  def boostSong(id)
+
+
+  end
+
 end
