@@ -76,9 +76,10 @@ end
       # params[:song]
     end
 
-  def boostSong(user_id)
-   @song = UserSong.find(params[:user_id])
+  def boostSong
+   @song = UserSong.where(user_id: params[:user_id])
    @song.boost = @song.boost+1
+   @song.save
   end
 
 end
