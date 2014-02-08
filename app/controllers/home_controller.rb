@@ -1,14 +1,11 @@
 class HomeController < ApplicationController
 	def index
-<<<<<<< HEAD
 
 		puts "ceva"
 		@song = Song.new
 		@songs = Song.first(5)
 
-=======
-		
->>>>>>> 2bec55d9572e343d074c5f35d4178c9dac68d0ba
+
 	  if user_signed_in?
 	  	@song = Song.new
 	  end
