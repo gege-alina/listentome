@@ -18,6 +18,7 @@ HomeIndex.prototype.selectors = {
 	youtubeLinkSelector : '.js-youtubeLink',
 	bodyContainerSelector : '.js-bodyContainer',
 	errorHolderSelector : '.js-errorHolder'
+ 	songVoteSelector : '.js-songVote'
 
 };
 
@@ -25,11 +26,17 @@ HomeIndex.prototype._addDelegates = function(){
 
 $(this.selectors.listSelector).find(this.selectors.listItemSelector).on('click', $.proxy(this._preventDefaultListItem,this));
 
+// modal stuff
+
 var $modalContainer = $(this.selectors.modalSelector);
 
 $modalContainer.find(this.selectors.saveModalSelector).on('click', $.proxy(this._addSong,this,$modalContainer));
 
 $modalContainer.find(this.selectors.closeModalSelector).on('click', $.proxy(this._closeModal,this,$modalContainer));
+
+// vote stuff 
+
+$(this.selectors.listSelector).find(this.selectors.songVoteSelector).on('click', $.proxy(this._songVoteAction,this));
 
 };
 
@@ -39,8 +46,6 @@ HomeIndex.prototype._preventDefaultListItem = function(e){
 e.preventDefault();
 
 };
-
-
 
 
 // submit-ul pentru modal 
@@ -120,12 +125,6 @@ HomeIndex.prototype.getYoutubeId = function(link){
 };
 
 
-$(document).ready(function () {
-    var ctrl = new HomeIndex();    
-
- });
-
-
 HomeIndex.prototype._closeModal = function(container,e){
 
 	container.find(this.selectors.errorHolderSelector).empty();
@@ -133,3 +132,25 @@ HomeIndex.prototype._closeModal = function(container,e){
 	container.find(this.selectors.youtubeLinkSelector).val('');
 
 };
+
+
+// Action - Vote 
+
+HomeIndex.prototype._songVoteAction = function(e){
+ 	e.preventDefault();
+ 	
+ 	var songId=$(e.currentTarget).data('song_id');
+
+	$.post( "/songs/boostSong", { song_id: songId } , function(data)
+		{
+			
+			var object = JSON.parse(data);
+			console.log(object);
+		});
+};
+
+
+
+$(document).ready(function () {
+    var ctrl = new HomeIndex();    
+ };

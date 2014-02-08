@@ -9,6 +9,7 @@
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<div class="col-lg-4">
 		  <% if user_signed_in? %>
 			<div class="fluid-container" style="margin-bottom:20px">
@@ -35,5 +36,36 @@
 			    <% end %>
 			  </ul>
 			</div>
+=======
+	</div>
+	<div class="col-lg-4">
+	  <% if user_signed_in? %>
+		<div class="row" style="margin-bottom:20px">
+			<div class="col-lg-10 col-lg-offset-1">
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  				Add a new song
+				</button>
+				<!-- Modal -->
+				<div class=" js-modalContainer modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="left:700px">
+				  <div class="modal-dialog modal-sm">
+				  	<%= render "songs/form" %>
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+			</div>
+		</div>
+	  <% end %>
+		<div class="panel panel-default">
+  <!-- Default panel contents -->
+		  <div class="panel-heading">Playlist</div>
+		  <!-- List group -->
+		  <ul class="list-group">
+		  <% @songs.each do |song| %>
+		      <li class="list-group-item"><a href="#"><%= song.title%></a>
+		      <p class='pull-right'><%= song.UserSong.boost %></p> 
+		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span> 
+		      </li>
+		    <% end %>
+		  </ul>
+>>>>>>> 004c86ecbc5bcf61db9c916f8009b71a58ba1cec
 		</div>
 	</div>

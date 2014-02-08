@@ -6,8 +6,7 @@ class SongsController < ApplicationController
   def index
     @songs = Song.all
     @song = Song.last
-
-end
+  end
 
   # GET /songs/1
   # GET /songs/1.json
@@ -25,18 +24,26 @@ end
 
   # POST /songs
   # POST /songs.json
-  def create
+ def create
     @song = Song.new(song_params)
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to :controller=>'home', :action => 'index' }
+        
+        @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+
+        if @us.save
+          format.html { redirect_to :controller=>'home', :action => 'index' }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @us.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
-  end
+  end 
 
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
@@ -62,6 +69,29 @@ end
     end
   end
 
+  # boostSong
+
+  def boostSong
+   
+   us = UserSong.where(song_id: params[:song_id]).first
+
+   user = User.find(us.user_id)
+   
+   if user.points == 0
+      respond_to do |format|
+        render :text => '{ "status":false }'
+      end
+   else 
+      user.points = user.points-1
+      user.save
+        
+      us.boost = us.boost+1
+      us.save
+      render :text => '{ "status":true }'
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
@@ -76,10 +106,17 @@ end
       # params[:song]
     end
 
-  def boostSong
+  def boostSong?
    @song = UserSong.where(user_id: params[:user_id])
-   @song.boost = @song.boost+1
-   @song.save
+   @user = User.where(id: params[:id])
+   if @user.points=0 or !@user.points
+    return false
+   else @user.points = @user.points-1
+        @user.save
+        @song.boost = @song.boost+1
+        @song.save
+        return true
+    end
   end
 
 end

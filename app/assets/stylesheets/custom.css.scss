@@ -27,6 +27,10 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
+.modal
+{
+    overflow-y: auto;
+}
 
 %box_sizing-border_box {
 	-webkit-box-sizing: border-box;
@@ -429,6 +433,7 @@ code {
 
 .footer {
 	bottom: 0;
+	color: $textColor !important;
 	display: block;
 	left: 0;
 	margin-bottom: 0;
@@ -454,9 +459,6 @@ code {
 				font-size: 12px;
 			}
 		}
-	}
-	a {
-		color: $textColor;
 	}
 	.hosted {
 		clear: both;
