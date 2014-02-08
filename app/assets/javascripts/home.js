@@ -105,7 +105,7 @@ if( data != null && typeof data !== 'undefined'){
 		if(data.status = true){
 
 		console.log('Treaba Buna');
-
+		
 
 		}else{
 
