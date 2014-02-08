@@ -32,6 +32,11 @@ body {
     overflow-y: auto;
 }
 
+.our-textarea {
+	
+	resize: none;
+}
+
 %box_sizing-border_box {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

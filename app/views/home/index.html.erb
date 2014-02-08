@@ -1,4 +1,4 @@
-	<div class="fluid-container">
+	<div class="fluid-container js-document">
 		<div class="col-lg-8 js-bodyContainer ">
 			<!--<%= image_tag("videoframe.png", :alt => "video frame" , :class => "img-responsive") %>-->
 			<div class="col-lg-offset-2 col-lg-8">
@@ -34,8 +34,7 @@
 		  <ul class="list-group">
 		  <% @songs.each do |song| %>
 		      <li class="list-group-item"><a href="#"><%= song.title%></a>
-		      <p class='pull-right'><%= song.UserSong.boost %></p> 
-		      <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>></span> 
+		      <a href="#" class="remove-anchor"> <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>> <%= song.UserSong.boost %> </span><a>
 		      </li>
 		    <% end %>
 		  </ul>
