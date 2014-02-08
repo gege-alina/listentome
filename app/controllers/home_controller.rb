@@ -1,5 +1,10 @@
 class HomeController < ApplicationController
 	def index
+
+		puts "ceva"
+		@song = Song.new
+		@songs = Song.all
+
 	  if user_signed_in?
 	  	@song = Song.new
 	  end
@@ -11,5 +16,6 @@ class HomeController < ApplicationController
 	  	@songs = []
 	  end
 	  
+
 	end
 end
