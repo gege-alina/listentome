@@ -67,12 +67,16 @@ class SongsController < ApplicationController
     end
   end
 
+
+
+  def getBestFive
+    render :text => Song.where(playlist: TRUE).order(:created_at).includes(:UserSong).order('"user_songs"."boost"').limit(5).to_json(include: :UserSong)
+  end
+
   # boostSong
 
   def boostSong
-   
    us = UserSong.where(song_id: params[:song_id]).first
-
    user = User.find(us.user_id)
    
    if user.points == 0
@@ -80,12 +84,14 @@ class SongsController < ApplicationController
    else 
       user.points = user.points-1
       user.save
-        
       us.boost = us.boost+1
       us.save
       render :text => '{ "status":true }'
-    end
+   end
   end
+
+  
+  
 
 
   private
