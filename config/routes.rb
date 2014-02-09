@@ -1,11 +1,12 @@
 Listentome::Application.routes.draw do
-  resources :songs
+  
   get "static_pages/about"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-
   match 'songs/boostSong' => 'songs#boostSong', :via => [:post], :as => 'songs/boostSong'
-  
+  match 'songs/getBestFive' => 'songs#getBestFive', :via => [:get], :as => 'songs/getBestFive'
+  resources :songs
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
