@@ -1,17 +1,14 @@
 class HomeController < ApplicationController
 	def index
-
-		@song = Song.new
-		@songs = Song.first(5)
-
-
+		
 	  if user_signed_in?
 	  	@song = Song.new
 	  end
 
 
 	  if Song.all != nil
-	  	@songs = Song.joins(:UserSong).first(5)
+	  	@songs = bestFive
+    	@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
 	  else
 	  	@songs = []
 	  end
@@ -23,6 +20,12 @@ class HomeController < ApplicationController
 	  @youtubeId = 'JW5meKfy3fY'
 
 	end
+
+
+ 	def bestFive
+    	return Song.where(playlist: TRUE).order(:created_at).includes(:UserSong).order('"user_songs"."boost"').limit(5)
+  	end
+
 
 	def addPointsToUser
 	  user_song = UserSong.where(song_id: params[:song_id]).first
