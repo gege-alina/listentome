@@ -22,7 +22,8 @@ HomeIndex.prototype.selectors = {
  	songVoteSelector : '.js-songVote',
  	songDescriptionSelector : '.js-songDescription',
  	documentSelector : '.js-document',
- 	anchorRemoveSelector : '.remove-anchor'
+ 	anchorRemoveSelector : '.remove-anchor',
+ 	currentSong : '.js-currentSong'
 
 };
 
@@ -107,7 +108,8 @@ HomeIndex.prototype._addSongAjaxSuccess = function(container,data,response){
 
 if( data != null && typeof data !== 'undefined'){
 
-		if(data.status = true){
+		if(data.status == true){
+
 
 		container.find(this.selectors.closeModalSelector).click();
 
@@ -118,8 +120,20 @@ if( data != null && typeof data !== 'undefined'){
 		// altfel statusul = false 	si feedError = true - nu a reusit sa valideze acel video in feed-ul youtube 
 		
 
-		console.log('Treaba Nasoala');
-		
+		if(data.feedError == true){
+
+			container.find(this.selectors.errorHolderSelector).empty();
+			container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger> Your video is unavailable (has problems). </div>');
+
+
+		}
+		else{
+			
+			container.find(this.selectors.errorHolderSelector).empty();
+			container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger> Server Error ! We are sorry. </div>');
+
+		}
+
 
 		}
 
@@ -177,8 +191,6 @@ HomeIndex.prototype._songVoteAction = function(e){
 		});
 };
 
-
-
 $(document).ready(function () {
     var ctrl = new HomeIndex();    
  });
@@ -196,7 +208,27 @@ $(document).ready(function () {
  	},3000);
 
 
- function generateList(obj)
+// YOUTUBE AREA ----- STAY AWAYYY
+
+function onYouTubePlayerReady(playerId) {
+		ytplayer = document.getElementById("myytplayer");
+		ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+};
+
+function onytplayerStateChange(newState) {
+					  
+					   
+		    if(newState == 1 ){
+
+				var currentYoutubeId = 	$('.js-bodyContainer').find('.js-currentSong').val();
+
+				console.log(currentYoutubeId);	   		
+
+		     }
+
+};
+
+function generateList(obj)
  {
  	var html = '';
 
@@ -220,4 +252,4 @@ $(document).ready(function () {
 
 	//console.log(html);
 	return html;
- }
+ };
