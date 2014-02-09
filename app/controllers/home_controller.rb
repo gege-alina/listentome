@@ -9,16 +9,13 @@ class HomeController < ApplicationController
 	  if Song.all != nil
 	  	@songs = bestFive
     	@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
+    	
+    	@youtubeId = 'NazVKnD-_sQ'
+
 	  else
 	  	@songs = []
 	  end
 	  
-	  #startTime va fi timpul luat din baza ( sysdate - de cand a inceput melodia )
-	  #youtubeId va fi id-ul melodiei curente
-
-	  @startTime = 20 
-	  @youtubeId = 'JW5meKfy3fY'
-
 	end
 
 

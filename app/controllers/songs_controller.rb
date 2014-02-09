@@ -26,22 +26,27 @@ class SongsController < ApplicationController
   # POST /songs.json
  def create
 
-    @song = Song.new(:title => params[:title],:link => params[:youtubeId])
+    @song = Song.new(:title => params[:title],:link => params[:youtubeId],:desc => params[:desc])
 
-      if @song.save
-        
-        @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+      if(YoutubeController.youtube_data(params[:youtubeId]))
 
-        if @us.save
-          render :text => '{ "status":true }'
-        else
-          render :text => '{ "status":false }'
-        end
+          if @song.save
+            
+            @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+
+                if @us.save
+                  render :text => '{ "status":true }'
+                else
+                  render :text => '{ "status":false,"feedError":false }'
+                end
+          else
+            render :text => '{ "status":false,"feedError":false }'
+          end
       else
-        render :text => '{ "status":false }'
+      render :text => '{ "status":false,"feedError":true }'
       end
-      
-  end 
+
+   end 
 
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
