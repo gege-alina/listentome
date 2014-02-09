@@ -1,6 +1,7 @@
 var HomeIndex = function () {
         this._initHome();
 
+
 };
 
 HomeIndex.prototype._initHome = function(){
@@ -18,7 +19,10 @@ HomeIndex.prototype.selectors = {
 	youtubeLinkSelector : '.js-youtubeLink',
 	bodyContainerSelector : '.js-bodyContainer',
 	errorHolderSelector : '.js-errorHolder',
- 	songVoteSelector : '.js-songVote'
+ 	songVoteSelector : '.js-songVote',
+ 	songDescriptionSelector : '.js-songDescription',
+ 	documentSelector : '.js-document',
+ 	anchorRemoveSelector : '.remove-anchor'
 
 };
 
@@ -26,6 +30,8 @@ HomeIndex.prototype._addDelegates = function(){
 
 $(this.selectors.listSelector).find(this.selectors.listItemSelector).on('click', $.proxy(this._preventDefaultListItem,this));
 
+
+$(this.selectors.documentSelector).find(this.selectors.anchorRemoveSelector).on('click', $.proxy(this._preventDefaultListItem,this));
 // modal stuff
 
 var $modalContainer = $(this.selectors.modalSelector);
@@ -35,8 +41,7 @@ $modalContainer.find(this.selectors.saveModalSelector).on('click', $.proxy(this.
 $modalContainer.find(this.selectors.closeModalSelector).on('click', $.proxy(this._closeModal,this,$modalContainer));
 
 // vote stuff 
-
-$(this.selectors.listSelector).find(this.selectors.songVoteSelector).on('click', $.proxy(this._songVoteAction,this));
+$('#content_list').on('click', this.selectors.songVoteSelector,$.proxy(this._songVoteAction,this));
 
 };
 
@@ -58,12 +63,11 @@ HomeIndex.prototype._addSong = function(container, e){
 
 	var title = container.find(this.selectors.songTitleSelector).val();
 	var youtubeLink = container.find(this.selectors.youtubeLinkSelector).val();
+	var description = container.find(this.selectors.songDescriptionSelector).val();
 
 
 	var youtubeId = this.getYoutubeId(youtubeLink);
 
-
-	// va trebui modificat ( chestie vizuala, append un warning )
 	if(youtubeId === ''){
 
 		container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger>Error! Youtube link is invalid. </div>');
@@ -73,41 +77,46 @@ HomeIndex.prototype._addSong = function(container, e){
 		var data = {
 
 			title : title, 
-			youtubeId : youtubeId
+			youtubeId : youtubeId,
+			desc : description
 
 		};
 
 
-		this._addSongAjaxCall(data);
+		this._addSongAjaxCall(data,container);
 
 	}
 };
 
 
 
-HomeIndex.prototype._addSongAjaxCall = function(data){
+HomeIndex.prototype._addSongAjaxCall = function(data,container){
 
   $.ajax({
   url: '/songs#create',
   dataType: 'JSON',
   data: data,
   type: 'POST',
-  success: $.proxy(this._addSongAjaxSuccess,this)
+  success: $.proxy(this._addSongAjaxSuccess,this,container)
 
 });
 
 };
 
-HomeIndex.prototype._addSongAjaxSuccess = function(data,response){
+HomeIndex.prototype._addSongAjaxSuccess = function(container,data,response){
 
 if( data != null && typeof data !== 'undefined'){
 
 		if(data.status = true){
 
-		console.log('Treaba Buna');
-		
+		container.find(this.selectors.closeModalSelector).click();
+
 
 		}else{
+
+		// daca nu a reusit sa adauge in baza de date statusul = false si feedError = false 
+		// altfel statusul = false 	si feedError = true - nu a reusit sa valideze acel video in feed-ul youtube 
+		
 
 		console.log('Treaba Nasoala');
 		
@@ -117,7 +126,8 @@ if( data != null && typeof data !== 'undefined'){
 }
 else {
 
-	console.log('EROARE SERVER!')
+	container.find(this.selectors.errorHolderSelector).empty();
+	container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger> Server Error ! We are sorry. </div>');
 }
 
 };
@@ -148,6 +158,7 @@ HomeIndex.prototype._closeModal = function(container,e){
 	container.find(this.selectors.errorHolderSelector).empty();
 	container.find(this.selectors.songTitleSelector).val('');
 	container.find(this.selectors.youtubeLinkSelector).val('');
+	container.find(this.selectors.songDescriptionSelector).val('');
 
 };
 
@@ -161,7 +172,6 @@ HomeIndex.prototype._songVoteAction = function(e){
 
 	$.post( "/songs/boostSong", { song_id: songId } , function(data)
 		{
-			
 			var object = JSON.parse(data);
 			console.log(object);
 		});
@@ -172,3 +182,42 @@ HomeIndex.prototype._songVoteAction = function(e){
 $(document).ready(function () {
     var ctrl = new HomeIndex();    
  });
+
+
+
+ setInterval(function(){
+ 		$.get("/songs/getBestFive", function(data)
+		{
+			var html = generateList(JSON.parse(data));
+			
+			$("#content_list").html(html);
+		});
+ 		
+ 	},3000);
+
+
+ function generateList(obj)
+ {
+ 	var html = '';
+
+ 	var x;
+
+ 	for(var i=0; i<obj.length; i++)
+	 	for(var j=i+1; j<obj.length; j++)
+	 		if(obj[i].UserSong.boost < obj[j].UserSong.boost)
+	 			{
+	 				x = obj[i];
+	 				obj[i] = obj[j];
+	 				obj[j] = x;
+	 			}
+
+ 	for(var i=0; i<obj.length; i++)
+	 	{
+	 		html = html + '<li class="list-group-item"><a href="#">' + obj[i].title + '</a><a href="#" class="remove-anchor">'
+	 			+ '<span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=' + obj[i].id + '>' +
+	 			+ obj[i].UserSong.boost + '</span></a></li>';
+		}
+
+	//console.log(html);
+	return html;
+ }
