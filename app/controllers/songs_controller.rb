@@ -70,8 +70,7 @@ class SongsController < ApplicationController
 
 
   def getBestFive
-    list = Song.where(playlist: TRUE).order(:created_at).joins(:UserSong).order('"user_songs"."boost" DESC').first(5)    
-    render :text => list.to_json
+    render :text => Song.where(playlist: TRUE).order(:created_at).includes(:UserSong).order('"user_songs"."boost"').limit(5).to_json(include: :UserSong)
   end
 
   # boostSong

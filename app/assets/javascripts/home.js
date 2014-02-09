@@ -41,8 +41,7 @@ $modalContainer.find(this.selectors.saveModalSelector).on('click', $.proxy(this.
 $modalContainer.find(this.selectors.closeModalSelector).on('click', $.proxy(this._closeModal,this,$modalContainer));
 
 // vote stuff 
-
-$(this.selectors.listSelector).find(this.selectors.songVoteSelector).on('click', $.proxy(this._songVoteAction,this));
+$('#content_list').on('click', this.selectors.songVoteSelector,$.proxy(this._songVoteAction,this));
 
 };
 
@@ -173,7 +172,6 @@ HomeIndex.prototype._songVoteAction = function(e){
 
 	$.post( "/songs/boostSong", { song_id: songId } , function(data)
 		{
-			
 			var object = JSON.parse(data);
 			console.log(object);
 		});
@@ -184,3 +182,42 @@ HomeIndex.prototype._songVoteAction = function(e){
 $(document).ready(function () {
     var ctrl = new HomeIndex();    
  });
+
+
+
+ setInterval(function(){
+ 		$.get("/songs/getBestFive", function(data)
+		{
+			var html = generateList(JSON.parse(data));
+			
+			$("#content_list").html(html);
+		});
+ 		
+ 	},3000);
+
+
+ function generateList(obj)
+ {
+ 	var html = '';
+
+ 	var x;
+
+ 	for(var i=0; i<obj.length; i++)
+	 	for(var j=i+1; j<obj.length; j++)
+	 		if(obj[i].UserSong.boost < obj[j].UserSong.boost)
+	 			{
+	 				x = obj[i];
+	 				obj[i] = obj[j];
+	 				obj[j] = x;
+	 			}
+
+ 	for(var i=0; i<obj.length; i++)
+	 	{
+	 		html = html + '<li class="list-group-item"><a href="#">' + obj[i].title + '</a><a href="#" class="remove-anchor">'
+	 			+ '<span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=' + obj[i].id + '>' +
+	 			+ obj[i].UserSong.boost + '</span></a></li>';
+		}
+
+	//console.log(html);
+	return html;
+ }
