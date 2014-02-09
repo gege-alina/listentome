@@ -8,6 +8,11 @@
         <%= f.text_field :title, :autofocus => true, :placeholder => "Enter title", :class => "js-songTitle form-control" %>
       </div>
 
+      <div class="form-group ">
+      <%= f.label :description %><br />
+      <%= f.text_area :desc , :placeholder => "Enter your description", :class => "js-songDescription our-textarea form-control" %>
+      </div>
+
       <div class="form-group  ">
         <%= f.label :link %><br />
         <%= f.text_field :link, :placeholder => "Enter youtube link", :class => "js-youtubeLink  form-control" %>
@@ -16,7 +21,7 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default js-closeForm" data-dismiss="modal">Close</button>
-      <%= f.submit "Save changes" , :class => "js-saveForm btn btn-primary"%>
+      <%= f.submit "Save changes" , :class => "js-saveForm btn btn-primary" %>
     </div>
   <% end %>
 </div><!-- /.modal-content -->
