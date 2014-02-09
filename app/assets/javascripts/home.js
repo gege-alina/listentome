@@ -84,36 +84,39 @@ HomeIndex.prototype._addSong = function(container, e){
 		};
 
 
-		this._addSongAjaxCall(data);
+		this._addSongAjaxCall(data,container);
 
 	}
 };
 
 
 
-HomeIndex.prototype._addSongAjaxCall = function(data){
+HomeIndex.prototype._addSongAjaxCall = function(data,container){
 
   $.ajax({
   url: '/songs#create',
   dataType: 'JSON',
   data: data,
   type: 'POST',
-  success: $.proxy(this._addSongAjaxSuccess,this)
+  success: $.proxy(this._addSongAjaxSuccess,this,container)
 
 });
 
 };
 
-HomeIndex.prototype._addSongAjaxSuccess = function(data,response){
+HomeIndex.prototype._addSongAjaxSuccess = function(container,data,response){
 
 if( data != null && typeof data !== 'undefined'){
 
 		if(data.status = true){
 
-		console.log('Treaba Buna');
-
+		container.find(this.selectors.closeModalSelector).click();
 
 		}else{
+
+		// daca nu a reusit sa adauge in baza de date statusul = false si feedError = false 
+		// altfel statusul = false 	si feedError = true - nu a reusit sa valideze acel video in feed-ul youtube 
+		
 
 		console.log('Treaba Nasoala');
 		
@@ -123,7 +126,8 @@ if( data != null && typeof data !== 'undefined'){
 }
 else {
 
-	console.log('EROARE SERVER!')
+	container.find(this.selectors.errorHolderSelector).empty();
+	container.find(this.selectors.errorHolderSelector).append('<div class=alert alert-danger> Server Error ! We are sorry. </div>');
 }
 
 };

@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
 	def index
 
-		puts "ceva"
 		@song = Song.new
 		@songs = Song.first(5)
 
