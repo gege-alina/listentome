@@ -34,7 +34,7 @@
 		  <ul class="list-group">
 		  <% @songs.each do |song| %>
 		      <li class="list-group-item"><a href="#"><%= song.title%></a>
-		      <a href="#" class="remove-anchor"> <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>> <%= song.UserSong.boost %> </span><a>
+		      <a href="#" class="remove-anchor"> <span class="glyphicon glyphicon-thumbs-up pull-right js-songVote" data-song_id=<%= song.id %>> <%= song.UserSong.boost %> </span></a>
 		      </li>
 		    <% end %>
 		  </ul>

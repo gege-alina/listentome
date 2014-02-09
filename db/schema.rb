@@ -19,7 +19,8 @@ ActiveRecord::Schema.define(version: 20131214134208) do
     t.text     "desc"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "playlist"
+    t.boolean  "playlist",       default: true
+    t.boolean  "playing",        default: false
     t.datetime "last_played_at"
   end
 

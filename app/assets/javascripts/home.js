@@ -112,6 +112,7 @@ if( data != null && typeof data !== 'undefined'){
 
 		container.find(this.selectors.closeModalSelector).click();
 
+
 		}else{
 
 		// daca nu a reusit sa adauge in baza de date statusul = false si feedError = false 
