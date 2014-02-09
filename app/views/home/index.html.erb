@@ -4,8 +4,30 @@
 			<div class="col-lg-offset-2 col-lg-8">
 				<div class="flex-video widescreen">
 				<!-- Forma generala pentru video youtube, autoplay 1, start = momentul de timp de pe site -->
-				  <embed src="https://youtube.com/v/<%= @youtubeId %>&start=<%= @startTime %>&autoplay=1"
-				         width="640" height="390"></embed>
+					<div id="ytapiplayer">
+						You need Flash player 8+ and JavaScript enabled to view this video.
+					</div>
+
+					<script type="text/javascript">
+
+					var params = { allowScriptAccess: "always" };
+					var atts = { id: "myytplayer" };
+					swfobject.embedSWF("https://youtube.com/v/<%= @youtubeId 	%>?enablejsapi=1&playerapiid=ytplayer&version=3&start=<%= @startTime %>&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3",
+						"ytapiplayer", "640", "390", "8", null, null, params, atts);
+
+					function onYouTubePlayerReady(playerId) {
+					  ytplayer = document.getElementById("myytplayer");
+					  ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+					}
+
+					function onytplayerStateChange(newState) {
+					   console.log("Player's new state: " + newState);
+					   //-1 stare initiala
+					   //1 altfel
+					   //0 terminare video
+					}
+
+					</script>
 				</div>
 			</div>
 		</div>
