@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap
 //= require swfobject
+//= require bootstrap-slider
 //= require_tree .
