@@ -26,22 +26,32 @@ class SongsController < ApplicationController
   # POST /songs.json
  def create
 
-    @song = Song.new(:title => params[:title],:link => params[:youtubeId])
+    @song = Song.new(:title => params[:title],:link => params[:youtubeId],:desc => params[:desc])
 
-      if @song.save
-        
-        @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+      if(YoutubeController.youtube_data(params[:youtubeId]))
 
-        if @us.save
-          render :text => '{ "status":true }'
-        else
-          render :text => '{ "status":false }'
-        end
+          if @song.save
+            
+            @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+
+                if @us.save
+                  playing = Song.where(playing => true).first
+                  if playing == nil
+                    changeSong(:no_song_playing => 1)
+                  else
+                    render :text => '{ "status":true }'
+                  end
+                else
+                  render :text => '{ "status":false,"feedError":false }'
+                end
+          else
+            render :text => '{ "status":false,"feedError":false }'
+          end
       else
-        render :text => '{ "status":false }'
+      render :text => '{ "status":false,"feedError":true }'
       end
-      
-  end 
+
+   end 
 
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
@@ -89,6 +99,38 @@ class SongsController < ApplicationController
       render :text => '{ "status":true }'
    end
   end
+
+
+
+  def changeSong
+    if params[:no_song_playing] == nil
+      termsong = Song.find(params[:song_id])
+      termsong.playing = false
+    
+        if !termsong.save
+          render :text => '{ "status":false,"error":"Database update error with song "'+termsong.id+' }'
+          exit
+        end
+    end
+
+    song = Song.order(boost: :desc).limit(1).where('playlist' => true).first
+      if song != nil
+        song.playing = true
+        song.playlist = false
+        song.last_played_at = (datetime('now'))
+        if !song.save
+          render :text => '{"status":false,"error":"Database update error with song "'+song.id+' }'
+          exit
+        else
+          render :text => '{ "status":true , "song_id" : '+song.id+'}'
+          exit
+        end
+      else
+        render :text => '{ "status":true , "song_id" : '+nil+'}'
+        exit
+      end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
