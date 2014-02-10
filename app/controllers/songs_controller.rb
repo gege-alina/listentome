@@ -108,8 +108,7 @@ class SongsController < ApplicationController
       termsong.playing = false
     
         if !termsong.save
-          render :text => '{ "status":false,"error":"Database update error with song "'+termsong.id+' }'
-          exit
+          render :text => '{ "status":false,"error":"Database update error with song "'+termsong.id+' }'        
         end
     end
 
@@ -119,15 +118,12 @@ class SongsController < ApplicationController
         song.playlist = false
         song.last_played_at = (datetime('now'))
         if !song.save
-          render :text => '{"status":false,"error":"Database update error with song "'+song.id+' }'
-          exit
+          render :text => '{"status":false,"error":"Database update error with song "'+song.id+' }'      
         else
-          render :text => '{ "status":true , "song_id" : '+song.id+'}'
-          exit
+          render :text => '{ "status":true ,"youtubeId" : '+song.link+', "song_id" : '+song.id+'}'    
         end
       else
-        render :text => '{ "status":true , "song_id" : '+nil+'}'
-        exit
+        render :text => '{ "status":false , "error":"Sorry. No song available. Please add one if you want. "}'
       end
   end
 

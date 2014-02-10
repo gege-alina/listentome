@@ -4,18 +4,12 @@
 			<div class="col-lg-offset-2 col-lg-8">
 				<div class="flex-video widescreen">
 				<!-- Forma generala pentru video youtube, autoplay 1, start = momentul de timp de pe site -->
+				<!-- trimitem youtubeId, songId, startTime de pe server si creem obiectul SWF la initializarea paginii in JS -->
+				
 					<div id="ytapiplayer">
 						You need Flash player 8+ and JavaScript enabled to view this video.
 					</div>
-					<input class="js-currentSong" style="display:none" data-youtubeId=<%= @youtubeId %> value=<%= @songId %> />
-
-					<script type="text/javascript">
-
-					var params = { allowScriptAccess: "always" };
-					var atts = { id: "myytplayer" };
-					swfobject.embedSWF("https://youtube.com/v/<%= @youtubeId 	%>?enablejsapi=1&playerapiid=ytplayer&version=3&start=<%= @startTime %>&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3",
-						"ytapiplayer", "640", "390", "8", null, null, params, atts);
-					</script>
+					<input class="js-currentSong" style="display:none" data-youtubeId=<%= @youtubeId %> value=<%= @songId %> data-startTime=<%= @startTime %> />
 				</div>
 			</div>
 		</div>

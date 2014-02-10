@@ -4,9 +4,6 @@ var HomeIndex = function () {
 
 };
 
-HomeIndex.prototype._initHome = function(){
-    this._addDelegates();
-};
 
 HomeIndex.prototype.selectors = {
 
@@ -24,6 +21,25 @@ HomeIndex.prototype.selectors = {
  	documentSelector : '.js-document',
  	anchorRemoveSelector : '.remove-anchor',
  	currentSong : '.js-currentSong'
+
+};
+
+HomeIndex.prototype._initHome = function(){
+    this._addDelegates();
+
+    var currentSong = $(this.selectors.documentSelector).find(this.selectors.currentSong);
+    var youtubeId = currentSong.attr('data-youtubeId');
+    var startTime = currentSong.attr('data-startTime');
+    this._initYoutubeSWF(youtubeId,startTime);
+};
+
+
+HomeIndex.prototype._initYoutubeSWF = function(youtubeId,startTime){
+
+var params = { allowScriptAccess: "always" };
+var atts = { id: "myytplayer" };
+swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&start='+ startTime + '&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3',
+						"ytapiplayer", "640", "390", "8", null, null, params, atts);
 
 };
 
@@ -187,7 +203,6 @@ HomeIndex.prototype._songVoteAction = function(e){
 	$.post( "/songs/boostSong", { song_id: songId } , function(data)
 		{
 			var object = JSON.parse(data);
-			console.log(object);
 		});
 };
 
@@ -218,15 +233,91 @@ function onYouTubePlayerReady(playerId) {
 function onytplayerStateChange(newState) {
 					  
 					   
-		    if(newState == 1 ){
+		    if(newState == 0 ){
 
 				var currentYoutubeId = 	$('.js-bodyContainer').find('.js-currentSong').val();
 
-				console.log(currentYoutubeId);	   		
+
+				if(currentYoutubeId !== '' && typeof currentYoutubeId != 'undefined'){
+				
+				var data = {
+					song_id : currentYoutubeId
+				};
+
+				changeSongAjaxCall(data);
+
+
+				}
+
 
 		     }
 
 };
+
+
+
+// change song when is finished - create a new SWF object with start time 0 and songId received from server - next song based on votes 
+
+function changeSongAjaxCall(data){
+
+
+$.ajax({
+  url: '/songs/changeSong',
+  dataType: 'JSON',
+  data: data,
+  type: 'POST',
+  success: function(data){
+
+  	if(data != null && typeof data != 'undefined'){
+
+  		if(data.status != null){
+
+			if(data.status){
+
+			newSwfObject(data.song_id);
+
+			var currentSong = $('.js-document').find('.js-currentSong');
+
+    		currentSong.attr('data-youtubeId',data.youtubeId);
+    		currentSong.attr('data-startTime','0');
+    		currentSong.val(data.song_id);
+
+			}
+			else{
+
+				if(data.error != ''){
+
+			    var ytplayer = document.getElementById("myytplayer");
+				ytplayer.empty('');
+				ytplayer.append('<div class=alert alert-danger>'+ data.error + '. Please refresh page.'+ '</div>');
+
+				}
+				
+			}			
+
+  		}
+  	}
+
+  }
+
+});
+
+
+
+ };
+
+// new SWF Object
+
+function newSwfObject(youtubeId){
+
+var params = { allowScriptAccess: "always" };
+var atts = { id: "myytplayer" };
+swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3',
+						"ytapiplayer", "640", "390", "8", null, null, params, atts);
+
+};
+
+// Helpers - generate Html Playlist
 
 function generateList(obj)
  {
