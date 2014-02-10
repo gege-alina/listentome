@@ -4,7 +4,7 @@ Listentome::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   match 'songs/boostSong' => 'songs#boostSong', :via => [:post], :as => 'songs/boostSong'
-  match 'songs/changeSong' => 'songs#changeSong', :via => [:post], :as => 'songs/changeSong'
+  match 'songs/changeSong' => 'songs#changeSong', :via => [:get], :as => 'songs/changeSong'
   match 'songs/getBestFive' => 'songs#getBestFive', :via => [:get], :as => 'songs/getBestFive'
   resources :songs
 

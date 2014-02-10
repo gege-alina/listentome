@@ -30,25 +30,28 @@ class SongsController < ApplicationController
 
       if(YoutubeController.youtube_data(params[:youtubeId]))
 
-          if @song.save
-            
-            @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+        if @song.save
+          
+          @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
+          if @us.save
 
-                if @us.save
-                  playing = Song.where(playing => true).first
-                  if playing == nil
-                    changeSong(:no_song_playing => 1)
-                  else
-                    render :text => '{ "status":true }'
-                  end
-                else
-                  render :text => '{ "status":false,"feedError":false }'
-                end
+            playing = Song.where(playing => true).first
+            if playing.nil?
+              changeSong(:no_song_playing => 1)
+            else
+              render :text => '{ "status":true }'
+            end
+
           else
             render :text => '{ "status":false,"feedError":false }'
           end
+
+        else
+          render :text => '{ "status":false,"feedError":false }'
+        end
+
       else
-      render :text => '{ "status":false,"feedError":true }'
+        render :text => '{ "status":false,"feedError":true }'
       end
 
    end 
@@ -80,7 +83,7 @@ class SongsController < ApplicationController
 
 
   def getBestFive
-    render :text => Song.where(playlist: TRUE).order(:created_at).includes(:UserSong).order('"user_songs"."boost"').limit(5).to_json(include: :UserSong)
+    render :text => Song.where(playlist: true).order(:created_at).includes(:UserSong).limit(5).to_json(include: :UserSong)
   end
 
   # boostSong
@@ -103,7 +106,7 @@ class SongsController < ApplicationController
 
 
   def changeSong
-    if params[:no_song_playing] == nil
+    if params[:no_song_playing].nil?
       termsong = Song.find(params[:song_id])
       termsong.playing = false
     
@@ -112,8 +115,8 @@ class SongsController < ApplicationController
         end
     end
 
-    song = Song.order(boost: :desc).limit(1).where('playlist' => true).first
-      if song != nil
+    song = Song.where(playlist: true).order(boost: :desc).first
+      if song.nil?
         song.playing = true
         song.playlist = false
         song.last_played_at = (datetime('now'))
