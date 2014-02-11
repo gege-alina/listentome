@@ -41,7 +41,7 @@ HomeIndex.prototype._initYoutubeSWF = function(youtubeId,startTime){
 
 var params = { allowScriptAccess: "always" };
 var atts = { id: "myytplayer" };
-swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&start='+ startTime + '&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3',
+swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&start='+ startTime + '&autoplay=1&controls=1&showinfo=0&modestbranding=1&iv_load_policy=3',
 						"ytapiplayer", "640", "390", "8", null, null, params, atts);
 
 };
@@ -131,7 +131,12 @@ if( data != null && typeof data !== 'undefined'){
 
 		if(data.youtubeId !== '' && typeof data.youtubeId !== 'undefined'){
 
-            newSwfObject(data.youtubeId);
+            
+			ytplayer = document.getElementById("myytplayer");
+			if(ytplayer === null)
+				this._initYoutubeSWF(data.youtubeId,0)
+			else
+		    	ytplayer.loadVideoById(data.youtubeId);
 
 			var currentSong = $('.js-document').find('.js-currentSong');
 
@@ -281,14 +286,15 @@ $.ajax({
   data: data,
   type: 'POST',
   success: function(data){
-
+  	console.log(data);
   	if(data != null && typeof data != 'undefined'){
 
   		if(data.status != null){
 
 			if(data.status){
 
-			newSwfObject(data.youtubeId);
+			ytplayer = document.getElementById("myytplayer");
+		    ytplayer.loadVideoById(data.youtubeId);
 
 			var currentSong = $('.js-document').find('.js-currentSong');
 
@@ -301,10 +307,14 @@ $.ajax({
 
 				if(data.error != ''){
 
-				var currentYTPlayer = $('.js-document').find('#myytplayer');
-				currentYTPlayer.empty('');
-				currentYTPlayer.append('<div class=alert alert-danger>'+ data.error + '. Please refresh page.'+ '</div>');
+				//var currentYTPlayer = $("#myytplayer");
+				//currentYTPlayer.html('');
+				//currentYTPlayer.append('<div class=alert alert-danger>'+ data.error + '. Please refresh page.'+ '</div>');
 
+					var currentYTPlayer = $("#myytplayer");
+				  	var parentcurrentYTPlayer =currentYTPlayer.parent();
+					currentYTPlayer.remove();
+					parentcurrentYTPlayer.prepend('<div id="ytapiplayer">No song for the moment.</div>');
 				}
 				
 			}			
@@ -312,6 +322,12 @@ $.ajax({
   		}
   	}
 
+  },
+  error:function(){
+  	var currentYTPlayer = $("#myytplayer");
+  	var parentcurrentYTPlayer =currentYTPlayer.parent();
+	currentYTPlayer.remove();
+	parentcurrentYTPlayer.prepend('<div id="ytapiplayer">No song for the moment.</div>');
   }
 
 });
@@ -319,17 +335,6 @@ $.ajax({
 
 
  };
-
-// new SWF Object
-
-function newSwfObject(youtubeId){
-
-var params = { allowScriptAccess: "always" };
-var atts = { id: "myytplayer" };
-swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3',
-						"ytapiplayer", "640", "390", "8", null, null, params, atts);
-
-};
 
 // Helpers - generate Html Playlist
 
@@ -358,25 +363,3 @@ function generateList(obj)
 	//console.log(html);
 	return html;
  };
-
-
-// get duration 
-
-function getSongDuration(youtubeId){
-
-var youTubeURL = 'http://gdata.youtube.com/feeds/api/videos/'+ youtubeId.trim() +'?v=2&alt=json';
-var json = (function () {
-    $.ajax({
-        url: youTubeURL,
-        dataType: "jsonp", // necessary for IE9
-        crossDomain: true,
-        success: function (data) {
-            var duration = data.entry.media$group.yt$duration.seconds;
-     
-        }
-
-
-    });
-})();
-
-};
