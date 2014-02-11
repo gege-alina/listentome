@@ -8,7 +8,7 @@ class HomeController < ApplicationController
 	  
 	  @songs = bestFive
 
-	  if !@songs.nil?
+	  if !@songs.nil? && @songs.length != 0 
 	  	
     	@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
     	currentSong = Song.where(playing: true).first
@@ -30,7 +30,8 @@ class HomeController < ApplicationController
     	else
 	    	@youtubeId = currentSong.link
 	    	@songId = currentSong.id
-	    	@startTime = (DateTime.now.to_time.to_i - currentSong.last_played_at.to_time.to_i).abs
+	    	@startTime = 0
+	    	#(DateTime.now.to_time.to_i - currentSong.last_played_at.to_time.to_i).abs
 	    end
 	  else
 	  	@songs = []
