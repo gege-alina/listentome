@@ -133,6 +133,7 @@ if( data != null && typeof data !== 'undefined'){
 
             
 			ytplayer = document.getElementById("myytplayer");
+			
 			if(ytplayer === null)
 				this._initYoutubeSWF(data.youtubeId,0)
 			else
@@ -277,16 +278,12 @@ function onytplayerStateChange(newState) {
 
 function changeSongAjaxCall(data){
 
-
-console.log(data);
-
 $.ajax({
   url: '/songs/changeSong',
   dataType: 'JSON',
   data: data,
   type: 'POST',
   success: function(data){
-  	console.log(data);
   	if(data != null && typeof data != 'undefined'){
 
   		if(data.status != null){
