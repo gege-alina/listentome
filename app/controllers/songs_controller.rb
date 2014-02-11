@@ -35,9 +35,9 @@ class SongsController < ApplicationController
           @us = UserSong.new(:user_id => current_user.id, :song_id => @song.id, :boost => 0)
           if @us.save
 
-            playing = Song.where(playing => true).first
+            playing = Song.where(playing: true).first
             if playing.nil?
-              changeSong(:no_song_playing => 1)
+              changeSongWithoutDelete
             else
               render :text => '{ "status":true }'
             end
@@ -106,29 +106,40 @@ class SongsController < ApplicationController
 
 
   def changeSong
-    if params[:no_song_playing].nil?
-      termsong = Song.find(params[:song_id])
-      termsong.playing = false
-    
-        if !termsong.save
-          render :text => '{ "status":false,"error":"Database update error with song "'+termsong.id+' }'        
-        end
-    end
+    termsong = Song.find(params[:song_id])
+    termsong.playing = false
+  
+      if !termsong.save
+        render :text => '{ "status":false,"error":"Database update error with song "'+termsong.id.to_s+' }'        
+      end
+  
+    changeSongWithoutDelete
 
-    song = Song.where(playlist: true).order(boost: :desc).first
-      if song.nil?
+  end
+
+
+  def changeSongWithoutDelete
+
+    songsFive = Song.where(playlist: true).order(:created_at).includes(:UserSong).limit(5)
+    songsFive.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
+    
+puts songsFive.inspect
+    song = songsFive.first
+puts song.inspect
+
+      if !song.nil?
         song.playing = true
         song.playlist = false
-        song.last_played_at = (datetime('now'))
+        song.last_played_at = DateTime.now
         if !song.save
-          render :text => '{"status":false,"error":"Database update error with song "'+song.id+' }'      
+          render :text => '{"status":false,"error":"Database update error with song "'+song.id.to_s+' }'      
         else
-          render :text => '{ "status":true ,"youtubeId" : '+song.link+', "song_id" : '+song.id+'}'    
+          render :text => '{ "status":true ,"youtubeId" : "'+song.link+'", "song_id" : '+song.id.to_s+'}'    
         end
       else
         render :text => '{ "status":false , "error":"Sorry. No song available. Please add one if you want. "}'
       end
-  end
+    end
 
 
   private

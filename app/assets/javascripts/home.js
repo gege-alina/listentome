@@ -1,7 +1,6 @@
 var HomeIndex = function () {
         this._initHome();
 
-
 };
 
 
@@ -30,7 +29,11 @@ HomeIndex.prototype._initHome = function(){
     var currentSong = $(this.selectors.documentSelector).find(this.selectors.currentSong);
     var youtubeId = currentSong.attr('data-youtubeId');
     var startTime = currentSong.attr('data-startTime');
-    this._initYoutubeSWF(youtubeId,startTime);
+
+    if(youtubeId != '' && youtubeId != '/' && typeof youtubeId != 'undefined'){
+    	    this._initYoutubeSWF(youtubeId,startTime);
+    }
+
 };
 
 
@@ -261,6 +264,8 @@ function onytplayerStateChange(newState) {
 function changeSongAjaxCall(data){
 
 
+console.log(data);
+
 $.ajax({
   url: '/songs/changeSong',
   dataType: 'JSON',
@@ -274,7 +279,7 @@ $.ajax({
 
 			if(data.status){
 
-			newSwfObject(data.song_id);
+			newSwfObject(data.youtubeId);
 
 			var currentSong = $('.js-document').find('.js-currentSong');
 
@@ -287,9 +292,9 @@ $.ajax({
 
 				if(data.error != ''){
 
-			    var ytplayer = document.getElementById("myytplayer");
-				ytplayer.empty('');
-				ytplayer.append('<div class=alert alert-danger>'+ data.error + '. Please refresh page.'+ '</div>');
+				var currentYTPlayer = $('.js-document').find('#myytplayer');
+				currentYTPlayer.empty('');
+				currentYTPlayer.append('<div class=alert alert-danger>'+ data.error + '. Please refresh page.'+ '</div>');
 
 				}
 				
@@ -344,3 +349,25 @@ function generateList(obj)
 	//console.log(html);
 	return html;
  };
+
+
+// get duration 
+
+function getSongDuration(youtubeId){
+
+var youTubeURL = 'http://gdata.youtube.com/feeds/api/videos/'+ youtubeId.trim() +'?v=2&alt=json';
+var json = (function () {
+    $.ajax({
+        url: youTubeURL,
+        dataType: "jsonp", // necessary for IE9
+        crossDomain: true,
+        success: function (data) {
+            var duration = data.entry.media$group.yt$duration.seconds;
+     
+        }
+
+
+    });
+})();
+
+};
