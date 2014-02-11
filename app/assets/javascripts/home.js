@@ -41,7 +41,7 @@ HomeIndex.prototype._initYoutubeSWF = function(youtubeId,startTime){
 
 var params = { allowScriptAccess: "always" };
 var atts = { id: "myytplayer" };
-swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&start='+ startTime + '&autoplay=1&controls=1&showinfo=0&modestbranding=1&iv_load_policy=3',
+swfobject.embedSWF('https://youtube.com/v/'+ youtubeId + '?enablejsapi=1&playerapiid=ytplayer&version=3&start='+ startTime + '&autoplay=1&controls=0&showinfo=0&modestbranding=1&iv_load_policy=3',
 						"ytapiplayer", "640", "390", "8", null, null, params, atts);
 
 };
