@@ -7,32 +7,32 @@ class HomeController < ApplicationController
 
 	  
 	  @songs = bestFive
+	  currentSong = Song.where(playing: true).first
 
-	  if !@songs.nil? && @songs.length != 0 
-	  	
-    	@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
-    	currentSong = Song.where(playing: true).first
+	  if @songs.length != 0 && currentSong.nil?
+		@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
+		firstSong = @songs[0]
+		firstSong.playing = true
+    	firstSong.playlist = false
+    	firstSong.last_played_at = DateTime.now
+    	firstSong.save
 
-    	puts @songs[0].inspect
+    	@youtubeId = firstSong.link
+	    @songId = firstSong.id
+	    @startTime = 0
 
-    	if currentSong.nil?
+	  elsif @songs.length != 0 && !currentSong.nil?
+	  	@songs.sort! { |b,a| a.UserSong.boost <=> b.UserSong.boost }
+	  	@youtubeId = currentSong.link
+    	@songId = currentSong.id
+    	@startTime = (DateTime.now.to_time.to_i - currentSong.last_played_at.to_time.to_i).abs
 
-    		firstSong = @songs[0]
-    		firstSong.playing = true
-        	firstSong.playlist = false
-        	firstSong.last_played_at = DateTime.now
-        	firstSong.save
+	  elsif @songs.length == 0 && !currentSong.nil?
+	  	@youtubeId = currentSong.link
+    	@songId = currentSong.id
+    	@startTime = (DateTime.now.to_time.to_i - currentSong.last_played_at.to_time.to_i).abs
+    	@songs = []
 
-    		@youtubeId = firstSong.link
-	    	@songId = firstSong.id
-	    	@startTime = 0
-
-    	else
-	    	@youtubeId = currentSong.link
-	    	@songId = currentSong.id
-	    	@startTime = 0
-	    	#(DateTime.now.to_time.to_i - currentSong.last_played_at.to_time.to_i).abs
-	    end
 	  else
 	  	@songs = []
 	  	@youtubeId = ""
