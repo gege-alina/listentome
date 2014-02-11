@@ -129,7 +129,16 @@ if( data != null && typeof data !== 'undefined'){
 
 		if(data.status == true){
 
+		if(data.youtubeId !== '' && typeof data.youtubeId !== 'undefined'){
 
+            newSwfObject(data.youtubeId);
+
+			var currentSong = $('.js-document').find('.js-currentSong');
+
+    		currentSong.attr('data-youtubeId',data.youtubeId);
+    		currentSong.attr('data-startTime','0');
+    		currentSong.val(data.song_id);
+		}
 		container.find(this.selectors.closeModalSelector).click();
 
 
